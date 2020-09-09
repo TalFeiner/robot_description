@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="blattoidea">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.14853 0.15935 0.29554"
+        rpy="0 0 0" />
+      <mass
+        value="3.6045" />
+      <inertia
+        ixx="0.03397"
+        ixy="-7.1688E-17"
+        ixz="-7.1044E-18"
+        iyy="0.080968"
+        iyz="4.034E-18"
+        izz="0.047057" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://blattoidea/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://blattoidea/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="lw_Link">
+    <inertial>
+      <origin
+        xyz="0.080855 -4.3044E-06 -5.8722E-06"
+        rpy="0 0 0" />
+      <mass
+        value="0.97717" />
+      <inertia
+        ixx="0.0027567"
+        ixy="-2.3115E-07"
+        ixz="-3.1534E-07"
+        iyy="0.0016171"
+        iyz="1.6994E-08"
+        izz="0.0016171" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://blattoidea/meshes/lw_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://blattoidea/meshes/lw_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="lw_joint"
+    type="continuous">
+    <origin
+      xyz="-0.0066026 -0.41814 0.15635"
+      rpy="-2.8253 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="lw_Link" />
+    <axis
+      xyz="1 0 0" />
+  </joint>
+  <link
+    name="rw_Link">
+    <inertial>
+      <origin
+        xyz="-0.030145 -6.8522E-14 -7.2809E-06"
+        rpy="0 0 0" />
+      <mass
+        value="0.97717" />
+      <inertia
+        ixx="0.0027567"
+        ixy="-1.0364E-14"
+        ixz="-3.9098E-07"
+        iyy="0.001617"
+        iyz="4.59E-16"
+        izz="0.0016171" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://blattoidea/meshes/rw_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://blattoidea/meshes/rw_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rw_joint"
+    type="continuous">
+    <origin
+      xyz="-0.022603 -0.061936 0.15635"
+      rpy="2.5982 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="rw_Link" />
+    <axis
+      xyz="1 0 0" />
+  </joint>
+  <link
+    name="r_caster_Link">
+    <inertial>
+      <origin
+        xyz="-1.9082E-08 0.042334 0.01609"
+        rpy="0 0 0" />
+      <mass
+        value="0.026461" />
+      <inertia
+        ixx="1.1218E-05"
+        ixy="6.255E-12"
+        ixz="-3.2391E-12"
+        iyy="9.1178E-06"
+        iyz="2.5189E-06"
+        izz="1.0862E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://blattoidea/meshes/r_caster_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://blattoidea/meshes/r_caster_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="r_caster_joint"
+    type="continuous">
+    <origin
+      xyz="0.3079 -0.15554 0.089119"
+      rpy="1.5182 0 1.7592" />
+    <parent
+      link="base_link" />
+    <child
+      link="r_caster_Link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="rc_wheel_Link">
+    <inertial>
+      <origin
+        xyz="-0.002 -3.7192E-15 -7.4385E-15"
+        rpy="0 0 0" />
+      <mass
+        value="0.0499" />
+      <inertia
+        ixx="3.5408E-05"
+        ixy="-9.8891E-20"
+        ixz="-9.3385E-20"
+        iyy="1.8462E-05"
+        iyz="1.5617E-21"
+        izz="1.8462E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://blattoidea/meshes/rc_wheel_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://blattoidea/meshes/rc_wheel_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rc_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="-0.002 0.010904 0.025608"
+      rpy="2.3039 0 3.1416" />
+    <parent
+      link="r_caster_Link" />
+    <child
+      link="rc_wheel_Link" />
+    <axis
+      xyz="1 0 0" />
+  </joint>
+  <link
+    name="l_caster_Link">
+    <inertial>
+      <origin
+        xyz="-1.597E-08 0.042334 0.01609"
+        rpy="0 0 0" />
+      <mass
+        value="0.026461" />
+      <inertia
+        ixx="1.1218E-05"
+        ixy="3.1588E-12"
+        ixz="-6.9764E-13"
+        iyy="9.1178E-06"
+        iyz="2.5189E-06"
+        izz="1.0862E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://blattoidea/meshes/l_caster_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://blattoidea/meshes/l_caster_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="l_caster_joint"
+    type="continuous">
+    <origin
+      xyz="0.3079 -0.43554 0.089119"
+      rpy="1.5182 0 1.0025" />
+    <parent
+      link="base_link" />
+    <child
+      link="l_caster_Link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="lc_wheel_Link">
+    <inertial>
+      <origin
+        xyz="-0.002 0 -4.1633E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.0499" />
+      <inertia
+        ixx="3.5408E-05"
+        ixy="2.8799E-20"
+        ixz="-1.9058E-21"
+        iyy="1.8462E-05"
+        iyz="2.647E-21"
+        izz="1.8462E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://blattoidea/meshes/lc_wheel_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://blattoidea/meshes/lc_wheel_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="lc_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="-0.002 0.010904 0.025608"
+      rpy="-1.5211 0 -3.1416" />
+    <parent
+      link="l_caster_Link" />
+    <child
+      link="lc_wheel_Link" />
+    <axis
+      xyz="1 0 0" />
+  </joint>
+</robot>
