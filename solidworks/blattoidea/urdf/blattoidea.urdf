@@ -14,10 +14,10 @@
         value="3.6045" />
       <inertia
         ixx="0.03397"
-        ixy="-7.1688E-17"
-        ixz="-7.1044E-18"
+        ixy="-7.1338E-17"
+        ixz="-1.4999E-17"
         iyy="0.080968"
-        iyz="4.034E-18"
+        iyz="4.0527E-18"
         izz="0.047057" />
     </inertial>
     <visual>
@@ -48,16 +48,16 @@
     name="lw_Link">
     <inertial>
       <origin
-        xyz="0.080855 -4.3044E-06 -5.8722E-06"
+        xyz="0.080855 7.3025E-14 7.2809E-06"
         rpy="0 0 0" />
       <mass
         value="0.97717" />
       <inertia
         ixx="0.0027567"
-        ixy="-2.3115E-07"
-        ixz="-3.1534E-07"
-        iyy="0.0016171"
-        iyz="1.6994E-08"
+        ixy="1.034E-14"
+        ixz="3.9098E-07"
+        iyy="0.001617"
+        iyz="4.5938E-16"
         izz="0.0016171" />
     </inertial>
     <visual>
@@ -88,8 +88,8 @@
     name="lw_joint"
     type="continuous">
     <origin
-      xyz="-0.0066026 -0.41814 0.15635"
-      rpy="-2.8253 0 -1.5708" />
+      xyz="-0.022603 -0.41814 0.15635"
+      rpy="2.2379 0 -1.5708" />
     <parent
       link="base_link" />
     <child
@@ -101,7 +101,7 @@
     name="rw_Link">
     <inertial>
       <origin
-        xyz="-0.030145 -6.8522E-14 -7.2809E-06"
+        xyz="-0.030145 -7.3413E-14 -7.2809E-06"
         rpy="0 0 0" />
       <mass
         value="0.97717" />
@@ -110,7 +110,7 @@
         ixy="-1.0364E-14"
         ixz="-3.9098E-07"
         iyy="0.001617"
-        iyz="4.59E-16"
+        iyz="4.5851E-16"
         izz="0.0016171" />
     </inertial>
     <visual>
@@ -207,16 +207,16 @@
     name="rc_wheel_Link">
     <inertial>
       <origin
-        xyz="-0.002 -3.7192E-15 -7.4385E-15"
+        xyz="-0.002 -4.996E-15 -1.0214E-14"
         rpy="0 0 0" />
       <mass
         value="0.0499" />
       <inertia
         ixx="3.5408E-05"
-        ixy="-9.8891E-20"
-        ixz="-9.3385E-20"
+        ixy="-9.8044E-20"
+        ixz="-9.4444E-20"
         iyy="1.8462E-05"
-        iyz="1.5617E-21"
+        iyz="-1.4823E-21"
         izz="1.8462E-05" />
     </inertial>
     <visual>
@@ -319,10 +319,10 @@
         value="0.0499" />
       <inertia
         ixx="3.5408E-05"
-        ixy="2.8799E-20"
-        ixz="-1.9058E-21"
+        ixy="2.7952E-20"
+        ixz="-1.7999E-21"
         iyy="1.8462E-05"
-        iyz="2.647E-21"
+        iyz="2.2235E-21"
         izz="1.8462E-05" />
     </inertial>
     <visual>
