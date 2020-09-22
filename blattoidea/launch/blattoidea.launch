@@ -12,8 +12,9 @@
 			<remap from="/joint_states" to="/blattoidea/joint_states" />
 		</node>
 
-		<include
-		file="$(find gazebo_ros)/launch/empty_world.launch" />
+		<include file="$(find gazebo_ros)/launch/empty_world.launch" >
+			 <arg name="world_name" value="$(find blattoidea)/worlds/random_velocity.world"/>
+		</include>	 
 		<!--<node
 		name="tf_footprint_base"
 		pkg="tf"
