@@ -1,21 +1,66 @@
 #!/usr/bin/env python
 
 import rospy
-from gazebo_msgs.msg import ModelState
+import numpy as np
+from tf.transformations import euler_from_quaternion, quaternion_from_euler
+from gazebo_msgs.msg import ModelState, ModelStates
 from gazebo_msgs.srv import SetModelState
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Twist, Pose
+
+def rotation_z_axis(v, theta):
+    R = np.array(([np.cos(theta), -np.sin(theta), 0], [np.sin(theta), np.cos(theta), 0] ,[0, 0, 1]))
+    return R.dot(v)
+
+class obj_pose():
+
+    def __init__ (self):
+        rospy.init_node('gazebo_link_pose', anonymous=True)
+        rospy.wait_for_service("gazebo/set_model_state")
+
+    def check_pose(self):
+        while not rospy.is_shutdown():
+            model_state = rospy.wait_for_message("/gazebo/model_states", ModelStates)
+            idx = model_state.name.index ("unit_sphere")
+            blattoidea_idx = model_state.name.index ("blattoidea")
+            position =  np.array([model_state.pose[idx].position.x, model_state.pose[idx].position.y, model_state.pose[idx].position.z])
+            blattoidea_position = np.array((model_state.pose[blattoidea_idx].position.x, model_state.pose[blattoidea_idx].position.y, model_state.pose[blattoidea_idx].position.z))
+            r = np.linalg.norm(np.array([blattoidea_position[0], blattoidea_position[1]]) - np.array([position[0], position[1]]))
+            if r < 1.6:
+                break
+
+        self.gazebo_pose()
+
+    def gazebo_pose(self):
+        gazebo_model_srv = rospy.ServiceProxy("gazebo/set_model_state", SetModelState)
+        gazebo_model_state = rospy.wait_for_message("/gazebo/model_states", ModelStates)
+
+        unit_sphere_idx = gazebo_model_state.name.index ("unit_sphere")
+        blattoidea_idx = gazebo_model_state.name.index ("blattoidea")
+        blattoidea_position = np.array((gazebo_model_state.pose[blattoidea_idx].position.x, gazebo_model_state.pose[blattoidea_idx].position.y, gazebo_model_state.pose[blattoidea_idx].position.z))
+        blattoidea_orientation = np.array((gazebo_model_state.pose[blattoidea_idx].orientation.x, gazebo_model_state.pose[blattoidea_idx].orientation.y, gazebo_model_state.pose[blattoidea_idx].orientation.z, gazebo_model_state.pose[blattoidea_idx].orientation.w))
+        blattoidea_euler = np.array(euler_from_quaternion(blattoidea_orientation))
+
+        position = rotation_z_axis(np.array([3,0,0]), blattoidea_euler[2]) + blattoidea_position
+        vel = (position - blattoidea_position) * -1.2
+
+        model_vel = Twist()
+        model_vel.linear.x = vel[0]
+        model_vel.linear.y = vel[1]
+        model_vel.linear.z = 0
+
+        model_pose = Pose()
+        model_pose.position.x = position[0]
+        model_pose.position.y = position[1]
+        model_pose.position.z = gazebo_model_state.pose[unit_sphere_idx].position.z
+
+        model = ModelState()
+        model.model_name = "unit_sphere"
+        model.twist = model_vel
+        model.pose = model_pose
+
+        gazebo_model_srv(model)
+        self.check_pose()
 
 if __name__ == '__main__':
-    rospy.init_node('gazebo_link_pose', anonymous=True)
-    rospy.wait_for_service("gazebo/set_model_state")
-    gazebo_model_srv = rospy.ServiceProxy("gazebo/set_model_state", SetModelState)
-
-    model_vel = Twist()
-    model_vel.linear.x = 1
-
-    model = ModelState()
-    model.model_name = "unit_sphere"
-    model.reference_frame = "world"
-    model.twist = model_vel
-
-    gazebo_model_srv(model)
+    pose = obj_pose()   
+    pose.gazebo_pose()
