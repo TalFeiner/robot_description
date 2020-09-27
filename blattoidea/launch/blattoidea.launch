@@ -2,9 +2,12 @@
 <launch>
 
 	<group>
-		
+				
 		<param name="robot_description"
 		textfile="$(find blattoidea)/urdf/blattoidea.urdf" />
+		
+		<param name="sphere_description"
+		textfile="$(find blattoidea)/urdf/unit_sphere.sdf" />
 		
 		<!-- convert joint states to TF transforms for rviz, etc -->
 		<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
@@ -26,6 +29,14 @@
 		type="spawn_model"
 		args="-urdf -model blattoidea -param robot_description"
 		output="screen" />
+		
+		<node
+		name="spawn_sphere"
+		pkg="gazebo_ros"
+		type="spawn_model"
+		args="-sdf -model unit_sphere -param sphere_description -x 5"
+		output="screen"
+		 />
 		<!--<node
 		name="fake_joint_calibration"
 		pkg="rostopic"
