@@ -11,6 +11,7 @@ fourcc = cv2.VideoWriter_fourcc(*'DIVX')
 bag = rosbag.Bag('/home/melodic/Documents/test_2020-10-01-15-08-20.bag')
 for topic, msg, t in bag.read_messages(topics=['/kinect/depth/image_raw']):  #  , '/kinect/color/image_raw/compressedDepth' 
     try:
+        # encoding of simulated depth image: 32FC1, encoding of real depth image: 16UC1
         cv_image = bridge.imgmsg_to_cv2(msg, desired_encoding="32FC1")
     except CvBridgeError as e:
         print(e)
@@ -26,12 +27,8 @@ for topic, msg, t in bag.read_messages(topics=['/kinect/depth/image_raw']):  #  
         is_color = False
         out = cv2.VideoWriter('video.avi', fourcc, 20.0, (int(shape[1]), int(shape[0])), is_color) 
     out.write(cv_image)
-    msg_img = np.array(cv_image).astype(np.uint8)
     # img.append(msg_img)
 bag.close()
 
 # import skvideo.io
-
-
-
 # skvideo.io.vwrite("outputvideo.mp4", img)
