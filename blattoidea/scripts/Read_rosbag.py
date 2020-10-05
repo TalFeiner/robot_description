@@ -7,8 +7,12 @@ from scipy.io import savemat
 
 from cv_bridge import CvBridge, CvBridgeError
 
+
+bag = rosbag.Bag("my_bag.bag")
+
 def _img_finding_shape(imgg,origin_img,vel = [0,0,0],font = cv2.FONT_HERSHEY_COMPLEX , color = "Ball"):
     
+    vel = Velocity_UnNormalize(vel)
     red_vel_round = np.round(np.array(vel),2)
     vel_text = str(red_vel_round)
     '''Gray image input and original. Center of shape output'''
@@ -84,55 +88,38 @@ def _Matrix_Velocity(img,velocity):
     
     return velocity_matrix
 
+def Velocity_Normalize(Velocity):
+    '''Input - Velocity (-5,5). Output - normalized Velocity (0,250) '''
+    Velocity[Velocity>0.01] = np.array(25 * Velocity[Velocity>0.01] + 125)
+    Velocity[Velocity<-0.01] = np.array(-25 * Velocity[Velocity<-0.01])
+    return Velocity
+
+
+def Velocity_UnNormalize(Velocity):
+    '''Input - Velocity (0,250). Output - unnormalized Velocity (-5,5)'''
+    Velocity = np.array(Velocity,dtype=np.float32)
+    Velocity[Velocity>125] = (Velocity[Velocity>125] - 125)/25
+    Velocity[Velocity<125] =  Velocity[Velocity<125]/-25
+    return Velocity
 
 
 global vel
-bridge = CvBridge()
+flag = True
+cap = cv2.VideoCapture('color.avi')
 fourcc = cv2.VideoWriter_fourcc(*'DIVX')
-bag = rosbag.Bag('my_bag.bag')
 
-'''
-flag = True
-for topic, msg, t in bag.read_messages(topics=['kinect/depth/image_raw']):  #  , '/kinect/color/image_raw/compressedDepth' 
-    try:
-        # encoding of simulated depth image: 32FC1, encoding of real depth image: 16UC1
-        cv_image = bridge.imgmsg_to_cv2(msg, desired_encoding="32FC1")
-    except CvBridgeError as e:
-        print(e)
-    cv_image = cv2.resize(cv_image,(400,400),interpolation = cv2.INTER_AREA)
-    cv_image = np.array(cv_image, dtype=np.float)
-    cv_image = cv2.normalize(cv_image, cv_image, 0, 255, cv2.NORM_MINMAX)
-    cv_image = np.round(cv_image).astype(np.uint8)
-    
+for i in range(1000):
+    ret , frame = cap.read()
+    frame = np.expand_dims(np.array(frame,dtype=np.uint8),axis=3)
     if flag:
         flag = False
-        shape = np.shape(cv_image)
-        print "Start making video"
-        is_color = False
-        out = cv2.VideoWriter('video.avi', fourcc, 20.0, (int(shape[1]), int(shape[0])), is_color) 
-    out.write(cv_image)
-if not flag:
-    print "Made video"
-'''
-
-flag = True
-for topic , msg , t in bag.read_messages(topics = ['kinect/color/image_raw']):
-    try:
-        # encoding of simulated depth image: 32FC1, encoding of real depth image: 16UC1
-        cv_image = bridge.imgmsg_to_cv2(msg, desired_encoding="bgr8")
-    except CvBridgeError as e:
-        print(e)
-    
-    cv_image = cv2.resize(cv_image,(400,400),interpolation = cv2.INTER_AREA)
-    cv_image = np.expand_dims(cv_image,axis=3)
-
-    if flag:
-        flag = False
-        img_stream = cv_image
-        print img_stream.shape
+        img_stream = frame
     else:
-        img_stream = np.concatenate([img_stream,cv_image],axis = 3)    
-    
+        print img_stream.shape
+        print frame.shape
+        img_stream = np.concatenate([img_stream,frame],axis = 3)  
+ 
+cap.release()
 
 time_step = []
 gazebo_name = '/gazebo/model_states'
@@ -140,36 +127,41 @@ i = 0
 for topic , msg , t in bag.read_messages(topics = [gazebo_name]):
     colors = msg.name
     index = colors.index("unit_sphere")
-    vel = np.array([msg.twist[index].linear.x,
-                    msg.twist[index].linear.y,
-                    msg.twist[index].linear.z])
+    vel = np.array([-msg.twist[index].linear.y,
+                    msg.twist[index].linear.z,
+                    -msg.twist[index].linear.x])
+    vel = Velocity_Normalize(vel)
+    
     Img = np.array(img_stream[:,:,:,i] , dtype = np.uint8)
-    Img , Matrix = Color_and_Velocity_finder(Img,Red_velocity=vel)
-    
-    pic_matrix = np.abs(Matrix)
-    pic_matrix = pic_matrix * 20
 
-    Matrix = np.expand_dims(Matrix,axis = 3)
+    Img , Matrix = Color_and_Velocity_finder(Img,Red_velocity=vel)
+    Matrix = np.array(Matrix,dtype=np.uint8)
+    #pic_matrix = np.abs(Matrix)
+    #pic_matrix = pic_matrix * 20
+
+    #Matrix = np.expand_dims(Matrix,axis = 3)
     if i == 0:
-        t_first = t
-        Matrix_stream = Matrix
-    else:
-        Matrix_stream = np.concatenate([Matrix_stream,Matrix],axis=3)
+        shape = np.shape(Matrix)
+        out_c = cv2.VideoWriter('Velocity.avi', fourcc, 20.0, (int(shape[1]), int(shape[0])), True)
+        #t_first = t
+        #Matrix_stream = Matrix
+    #else:
+    #    Matrix_stream = np.concatenate([Matrix_stream,Matrix],axis=3)
     #Matrix_stream[:,:,:,i] = t.secs-t_first.secs + (10**-9)*(t.nsecs-t_first.nsecs)
-    step = t.secs-t_first.secs + (10**-9)*(t.nsecs-t_first.nsecs)
-    time_step.append(step)
-    
+    #step = t.secs-t_first.secs + (10**-9)*(t.nsecs-t_first.nsecs)
+    #time_step.append(step)
+    out_c.write(Matrix)
     i = i + 1
-    cv2.imshow("velocity_image",pic_matrix)
+    cv2.imshow("velocity_image",Matrix)
     cv2.imshow("Image",Img)
     cv2.waitKey(1)
     print(i)
-
-time_step = np.array(time_step)
-savemat("Second_batch",{'pixel_Velocity' : Matrix_stream ,'Time_Stamp' : time_step})
+#Matrix_stream = np.array(Matrix_stream,dtype=np.float16)
+#time_step = np.array(time_step,dtype=np.float16)
+#savemat("Second_batch",{'pixel_Velocity' : Matrix_stream ,'Time_Stamp' : time_step})
 
 cv2.destroyAllWindows()
-
+out_c.release()
 bag.close()
 
 
