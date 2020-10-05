@@ -6,8 +6,17 @@
 		<param name="robot_description"
 		textfile="$(find blattoidea)/urdf/blattoidea.urdf" />
 		
-		<param name="sphere_description"
-		textfile="$(find blattoidea)/urdf/unit_sphere.sdf" />
+		<param name="sphere_red_description"
+		textfile="$(find blattoidea)/urdf/sphere_red.sdf" />
+		
+		<param name="sphere_blue_description"
+		textfile="$(find blattoidea)/urdf/sphere_blue.sdf" />
+
+		<param name="sphere_green_description"
+		textfile="$(find blattoidea)/urdf/sphere_green.sdf" />
+
+		<param name="sphere_yellow_description"
+		textfile="$(find blattoidea)/urdf/sphere_yellow.sdf" />
 		
 		<!-- convert joint states to TF transforms for rviz, etc -->
 		<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
@@ -31,10 +40,34 @@
 		output="screen" />
 		
 		<node
-		name="spawn_sphere"
+		name="spawn_sphere_red"
 		pkg="gazebo_ros"
 		type="spawn_model"
-		args="-sdf -model unit_sphere -param sphere_description -x 5"
+		args="-sdf -model sphere_red -param sphere_red_description -x 5"
+		output="screen"
+		 />
+		
+		<node
+		name="spawn_sphere_blue"
+		pkg="gazebo_ros"
+		type="spawn_model"
+		args="-sdf -model sphere_blue -param sphere_blue_description -x -5"
+		output="screen"
+		 />
+
+		<node
+		name="spawn_sphere_green"
+		pkg="gazebo_ros"
+		type="spawn_model"
+		args="-sdf -model sphere_green -param sphere_green_description -x 5 -y 5"
+		output="screen"
+		 />
+
+		<node
+		name="spawn_sphere_yellow"
+		pkg="gazebo_ros"
+		type="spawn_model"
+		args="-sdf -model sphere_yellow -param sphere_yellow_description -x 5 -y -5"
 		output="screen"
 		 />
 		<!--<node
