@@ -1,0 +1,28 @@
+Data:
+
+----------------
+Batch include:
+
+pixel_Velocity : Numpy matrix, dimentions: [400,400,3,T]. T: Number of frames. For each frame t in T, it present each pixel 3D velocity in the gazebo world. To change into picture velocity:
+
+[vx,vy,vz] world -> [-vy,vz,-vx] picture.
+-vx world = vz picture -> z- depth dimention' positive outside the picture. 
+
+Time_Stamp: Numpy array, dimentions: [1,T]. For each frame t in T, it present how much time has passed since the first frame. (Time_Stamp[1,0]=0)
+
+
+To import batch data:
+
+from scipy.io import loadmat
+
+data = loadmat("name_of_batch")
+
+pixel_Velocity = data['pixel_Velocity']
+Time_Stamp = data['Time_Stamp']
+---------------
+
+---------------
+Video Include:
+
+Has N frames.
+---------------
