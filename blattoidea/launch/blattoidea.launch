@@ -34,7 +34,7 @@
 		name="spawn_sphere"
 		pkg="gazebo_ros"
 		type="spawn_model"
-		args="-sdf -model unit_sphere -param sphere_description -x 5"
+		args="-sdf -model unit_sphere -param sphere_description -x 3.5"
 		output="screen"
 		 />
 		<!--<node
@@ -44,5 +44,7 @@
 		args="pub /calibrated std_msgs/Bool true" />-->
 		
 	</group>
+
+	<node pkg="blattoidea" type="gazebo_init_vel.py" name="sphere_velocity_node" output="screen"/>
     
 </launch>
