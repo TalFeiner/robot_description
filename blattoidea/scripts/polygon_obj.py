@@ -33,9 +33,9 @@ def obj_place(model_state, blattoidea_idx, obj, inside, gazebo_model_srv):
 
 def spawn(ii, blattoidea_idx, model_state, gazebo_model_srv, obj, reference, mean_vel = [0, 0], cov_vel = [[6, 0], [0, 6]]):
     global coords
-    # blattoidea_position = np.array((model_state.pose[blattoidea_idx].position.x, model_state.pose[blattoidea_idx].position.y, model_state.pose[blattoidea_idx].position.z))
+    blattoidea_position = np.array((model_state.pose[blattoidea_idx].position.x, model_state.pose[blattoidea_idx].position.y, model_state.pose[blattoidea_idx].position.z))
     blattoidea_orientation = np.array((model_state.pose[blattoidea_idx].orientation.x,model_state.pose[blattoidea_idx].orientation.y, model_state.pose[blattoidea_idx].orientation.z, model_state.pose[blattoidea_idx].orientation.w))
-    # blattoidea_euler = np.array(euler_from_quaternion(blattoidea_orientation))
+    blattoidea_euler = np.array(euler_from_quaternion(blattoidea_orientation))
     # vel = np.random.multivariate_normal(mean_vel, cov_vel, (1)).reshape(2)
     # for ii in range(len(vel)):
     #     if vel[ii] is 0.0:
@@ -58,7 +58,7 @@ def spawn(ii, blattoidea_idx, model_state, gazebo_model_srv, obj, reference, mea
             vel = -1 * np.random.multivariate_normal([0.5, 4], [[1, 0], [0, 1]], (1)).reshape(2)
         # position = np.array((x, y, 0))
         # x, y, __ = (rotation_z_axis(position, blattoidea_euler[2]).T + blattoidea_position).reshape((3))
-        vel[0] = 0
+        # vel[0] = 0
         # for ii in range(len(vel)):
         #     if vel[ii] is 0.0:
         #         vel = np.random.multivariate_normal([3, 3], [[2, 0], [0, 2]], (1)).reshape(2)
@@ -72,7 +72,7 @@ def spawn(ii, blattoidea_idx, model_state, gazebo_model_srv, obj, reference, mea
             vel = -1 * np.random.multivariate_normal([0.5, -4], [[1, 0], [0, 1]], (1)).reshape(2)
         # position = np.array((x, y, 0))
         # x, y, __ = (rotation_z_axis(position, blattoidea_euler[2]).T + blattoidea_position).reshape((3))
-        vel[0] = 0
+        # vel[0] = 0
         # for ii in range(len(vel)):
         #     if vel[ii] is 0.0:
         #         vel = np.random.multivariate_normal([3, 3], [[2, 0], [0, 2]], (1)).reshape(2)
@@ -88,9 +88,11 @@ def spawn(ii, blattoidea_idx, model_state, gazebo_model_srv, obj, reference, mea
             x = coords[2][0] 
             vel = np.random.multivariate_normal([0.5, -4], [[1, 0], [0, 1]], (1)).reshape(2)
         # position = np.array((x, y, 0))
-        vel[1] = 0
+        # vel[1] = 0
 
     print "x, y ", x, y
+    position = np.array((x, y, 0))
+    x, y, __ = (rotation_z_axis(position, blattoidea_euler[2]).T + blattoidea_position).reshape((3))
 
     model_vel = Twist()
     model_vel.linear.x = vel[0]
@@ -176,7 +178,7 @@ def main():
     rospy.wait_for_service("gazebo/set_model_state")
     poly_pub = rospy.Publisher('/poly_pub', PolygonStamped, queue_size=2)
     gazebo_model_srv = rospy.ServiceProxy("gazebo/set_model_state", SetModelState)
-    rospy.Subscriber('/poly_pub', PolygonStamped, poly_callback)
+    # rospy.Subscriber('/poly_pub', PolygonStamped, poly_callback)
     tfBuffer = tf2_ros.Buffer()
     listener = tf2_ros.TransformListener(tfBuffer)
 
