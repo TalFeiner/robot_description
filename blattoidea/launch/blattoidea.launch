@@ -60,28 +60,28 @@
 		name="spawn_sphere_red"
 		pkg="gazebo_ros"
 		type="spawn_model"
-		args="-sdf -model sphere_red -param sphere_red_description -x 5"
+		args="-sdf -model sphere_red -param sphere_red_description -x 20"
 		output="screen"
 		 />
 		<node
 		name="spawn_sphere_blue"
 		pkg="gazebo_ros"
 		type="spawn_model"
-		args="-sdf -model sphere_blue -param sphere_blue_description -x -5"
+		args="-sdf -model sphere_blue -param sphere_blue_description -x -20"
 		output="screen"
 		 />
 		<node
 		name="spawn_sphere_green"
 		pkg="gazebo_ros"
 		type="spawn_model"
-		args="-sdf -model sphere_green -param sphere_green_description -x 5 -y 5"
+		args="-sdf -model sphere_green -param sphere_green_description -x 20 -y 20"
 		output="screen"
 		 />
 		<node
 		name="spawn_sphere_yellow"
 		pkg="gazebo_ros"
 		type="spawn_model"
-		args="-sdf -model sphere_yellow -param sphere_yellow_description -x 5 -y -5"
+		args="-sdf -model sphere_yellow -param sphere_yellow_description -x 20 -y -20"
 		output="screen"
 		 />
 		 
@@ -89,28 +89,28 @@
 		name="spawn_cylinder_red"
 		pkg="gazebo_ros"
 		type="spawn_model"
-		args="-sdf -model cylinder_red -param cylinder_red_description -x -5 -y -5"
+		args="-sdf -model cylinder_red -param cylinder_red_description -x -20 -y -20"
 		output="screen"
 		 />
 		 <node
 		name="spawn_cylinder_yellow"
 		pkg="gazebo_ros"
 		type="spawn_model"
-		args="-sdf -model cylinder_yellow -param cylinder_yellow_description -x -5 -y 5"
+		args="-sdf -model cylinder_yellow -param cylinder_yellow_description -x -20 -y 20"
 		output="screen"
 		 />
 		 <node
 		name="spawn_cylinder_blue"
 		pkg="gazebo_ros"
 		type="spawn_model"
-		args="-sdf -model cylinder_blue -param cylinder_blue_description -x 0 -y 5"
+		args="-sdf -model cylinder_blue -param cylinder_blue_description -x 0 -y 20"
 		output="screen"
 		 />
 		 <node
 		name="spawn_cylinder_green"
 		pkg="gazebo_ros"
 		type="spawn_model"
-		args="-sdf -model cylinder_green -param cylinder_green_description -x 0 -y -5"
+		args="-sdf -model cylinder_green -param cylinder_green_description -x 0 -y -20"
 		output="screen"
 		 />
 		 
