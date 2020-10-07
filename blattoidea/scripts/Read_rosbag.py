@@ -33,8 +33,6 @@ def _img_finding_shape(imgg,origin_img,vel = [0,0,0],font = cv2.FONT_HERSHEY_COM
             cv2.putText(origin_img, color , (x+4*w/10, y+h/2), font, 0.5, (0,0,0))
             cv2.putText(origin_img, vel_text , (x+4*w/10, y+h/2+12), font, 0.3, (0,0,0))
         else: continue
-    if color == 'Red' and iteration == -1:
-        print "Problem"
     return x,y
 
 def Color_and_Velocity_finder(imgg , Red_velocity=[0,0,0] , Blue_velocity=[0,0,0],
@@ -49,20 +47,20 @@ def Color_and_Velocity_finder(imgg , Red_velocity=[0,0,0] , Blue_velocity=[0,0,0
     Red_Vel_mat = _Matrix_Velocity(Red,Red_velocity)
     
     # Blue color:
-    low_blue = np.array([120,251,101])
-    high_blue = np.array([121,255,132])
+    low_blue = np.array([108,101,0])
+    high_blue = np.array([123,255,255])
     Blue = cv2.inRange(img_HSV,low_blue,high_blue)
     Blue_Vel_mat = _Matrix_Velocity(Blue,Blue_velocity)
     
     # Green color:
-    low_green = np.array([59,251,101])
-    high_green = np.array([60,255,132])
+    low_green = np.array([54,101,0])
+    high_green = np.array([61,255,255])
     Green = cv2.inRange(img_HSV,low_green,high_green)
     Green_Vel_mat = _Matrix_Velocity(Green,Green_velocity)
     
     # Yellow color:
-    low_yellow = np.array([29,251,101])
-    high_yellow = np.array([30,255,132])
+    low_yellow = np.array([28,101,0])
+    high_yellow = np.array([34,255,255])
     Yellow = cv2.inRange(img_HSV,low_yellow,high_yellow)
     Yellow_Vel_mat = _Matrix_Velocity(Yellow,Yellow_velocity)
     
@@ -102,6 +100,15 @@ def Velocity_UnNormalize(Velocity):
     Velocity[Velocity<125] =  Velocity[Velocity<125]/-25
     return Velocity
 
+def Velocity_from_gazebo(msg , unit_name):
+    colors = msg.name
+    index = colors.index(unit_name)
+    vel = np.array([-msg.twist[index].linear.y,
+                    msg.twist[index].linear.z,
+                    -msg.twist[index].linear.x])
+    vel = Velocity_Normalize(vel)
+    return vel
+
 
 global vel
 flag = True
@@ -125,29 +132,23 @@ time_step = []
 gazebo_name = '/gazebo/model_states'
 i = 0
 for topic , msg , t in bag.read_messages(topics = [gazebo_name]):
-    colors = msg.name
-    index = colors.index("unit_sphere")
-    vel = np.array([-msg.twist[index].linear.y,
-                    msg.twist[index].linear.z,
-                    -msg.twist[index].linear.x])
-    vel = Velocity_Normalize(vel)
     
+    vel_R = Velocity_from_gazebo(msg , 'sphere_red' )
+    vel_B = Velocity_from_gazebo(msg , 'sphere_blue' )
+    vel_G = Velocity_from_gazebo(msg , 'sphere_green' )
+    vel_Y = Velocity_from_gazebo(msg , 'sphere_yellow' )
+
     Img = np.array(img_stream[:,:,:,i] , dtype = np.uint8)
 
-    Img , Matrix = Color_and_Velocity_finder(Img,Red_velocity=vel)
+    Img , Matrix = Color_and_Velocity_finder(Img,Red_velocity=vel_R,Blue_velocity=vel_B,
+                                            Green_velocity=vel_G,Yellow_velocity=vel_Y)
     Matrix = np.array(Matrix,dtype=np.uint8)
-    #pic_matrix = np.abs(Matrix)
-    #pic_matrix = pic_matrix * 20
-
-    #Matrix = np.expand_dims(Matrix,axis = 3)
+    
     if i == 0:
         shape = np.shape(Matrix)
         out_c = cv2.VideoWriter('Velocity.avi', fourcc, 20.0, (int(shape[1]), int(shape[0])), True)
         #t_first = t
-        #Matrix_stream = Matrix
-    #else:
-    #    Matrix_stream = np.concatenate([Matrix_stream,Matrix],axis=3)
-    #Matrix_stream[:,:,:,i] = t.secs-t_first.secs + (10**-9)*(t.nsecs-t_first.nsecs)
+        
     #step = t.secs-t_first.secs + (10**-9)*(t.nsecs-t_first.nsecs)
     #time_step.append(step)
     out_c.write(Matrix)
@@ -156,9 +157,9 @@ for topic , msg , t in bag.read_messages(topics = [gazebo_name]):
     cv2.imshow("Image",Img)
     cv2.waitKey(1)
     print(i)
-#Matrix_stream = np.array(Matrix_stream,dtype=np.float16)
+
 #time_step = np.array(time_step,dtype=np.float16)
-#savemat("Second_batch",{'pixel_Velocity' : Matrix_stream ,'Time_Stamp' : time_step})
+#savemat("Second_batch",{'Time_Stamp' : time_step})
 
 cv2.destroyAllWindows()
 out_c.release()
