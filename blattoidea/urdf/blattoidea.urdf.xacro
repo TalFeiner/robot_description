@@ -107,6 +107,7 @@
       link="lw_Link" />
     <axis
       xyz="1 0 0" />
+      <dynamics damping="5" friction="2"/>
   </joint>
   <link
     name="rw_Link">
@@ -160,6 +161,7 @@
       link="rw_Link" />
     <axis
       xyz="-1 0 0" />
+      <dynamics damping="5" friction="2"/>
   </joint>
   <link
     name="rc_segment_Link">
@@ -256,7 +258,7 @@
   </link>
   <joint
     name="r_caster_joint"
-    type="continuous">
+    type="fixed">
     <origin
       xyz="-0.00200000000001023 0.00131343107405157 -0.0249654741355608"
       rpy="3.03621882782983 0.0974777924807896 3.13644802921112" />
@@ -309,7 +311,7 @@
   </link>
   <joint
     name="rc_wheel_joint"
-    type="continuous">
+    type="fixed">
     <origin
       xyz="0 -0.0013134310740316 0.0249654741355853"
       rpy="-0.0525614415799654 0 3.14159265358979" />
@@ -415,7 +417,7 @@
   </link>
   <joint
     name="l_caster_joint"
-    type="continuous">
+    type="fixed">
     <origin
       xyz="-0.00199999999996087 0.00131343107405134 -0.0249654741355564"
       rpy="0.00025094260002981 -0.0974777924807896 -0.00514462437867282" />
@@ -468,7 +470,7 @@
   </link>
   <joint
     name="lc_wheel_joint"
-    type="continuous">
+    type="fixed">
     <origin
       xyz="0 -0.00131343107400735 0.0249654741355546"
       rpy="3.08903121200983 0 3.14159265358979" />
@@ -617,7 +619,7 @@
   
   <gazebo reference="camera_link">
   <sensor name="kinect" type="depth">
-    <update_rate>90</update_rate>
+    <update_rate>20</update_rate>
     <camera>
       <horizontal_fov>1.047198</horizontal_fov>
       <image>
@@ -642,7 +644,7 @@
       <pointCloudTopicName>/kinect/depth/points</pointCloudTopicName>
       <frameName>camera_link</frameName>
       <pointCloudCutoff>0.5</pointCloudCutoff>
-      <pointCloudCutoffMax>7.0</pointCloudCutoffMax>
+      <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
       <distortionK1>0.0</distortionK1>
       <distortionK2>0.0</distortionK2>
       <distortionK3>0.0</distortionK3>

@@ -35,6 +35,7 @@ rospy.wait_for_message("/kinect/depth/image_raw", Image)
 print "Create"
 bridge = CvBridge()
 fourcc = cv2.VideoWriter_fourcc(*'DIVX')
+NumberOfSamples = 5000
 
 bag = rosbag.Bag('my_bag.bag','w')
 flag = True
@@ -74,14 +75,14 @@ while not rospy.is_shutdown():
         out_c = cv2.VideoWriter('color.avi', fourcc, 20.0, (int(shape[1]), int(shape[0])), True)
     out_d.write(Img_d)
     out_c.write(Img_c)
-    #bag.write("kinect/color/image_raw",Img_color)
-    #bag.write("kinect/depth/image_raw",Img_depth)
+    
+
     i = i + 1
-    if i == 1000:
-        print 'Took 1000 samples, enough for now'
+    print i , " frames have been taken"
+    if i == NumberOfSamples:
         break
 
 bag.close()
 out_d.release()
 out_d.release()
-print "Done creating"
+print "Done!!"

@@ -1,31 +1,32 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
-  <model name='unit_shpere'>
+  <model name='cylinder'>
     <link name='link_0'>
       <inertial>
         <mass>1</mass>
         <inertia>
-          <ixx>0.1</ixx>
+          <ixx>0.145833</ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>0.1</iyy>
+          <iyy>0.145833</iyy>
           <iyz>0</iyz>
-          <izz>0.1</izz>
+          <izz>0.125</izz>
         </inertia>
       </inertial>
-      <pose frame=''>-0 -0 0 0 -0 0</pose>
+      <pose frame=''>4e-06 0 0 0 1.57049 0</pose>
       <visual name='visual'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
-          <sphere>
+          <cylinder>
             <radius>0.25</radius>
-          </sphere>
+            <length>0.5</length>
+          </cylinder>
         </geometry>
         <material>
           <lighting>1</lighting>
           <script>
             <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Yellow</name>
+            <name>Gazebo/Turquoise</name>
           </script>
         </material>
         <transparency>0</transparency>
@@ -36,9 +37,10 @@
         <max_contacts>10</max_contacts>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
-          <sphere>
+          <cylinder>
             <radius>0.25</radius>
-          </sphere>
+            <length>0.5</length>
+          </cylinder>
         </geometry>
         <surface>
           <friction>
