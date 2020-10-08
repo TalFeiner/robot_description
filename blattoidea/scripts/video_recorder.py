@@ -10,7 +10,7 @@ from cv_bridge import CvBridge, CvBridgeError
 
 global out, c, frame_num, fourcc, img
 img = [] 
-frame_num = 1000
+frame_num = 5000
 c = 0
 
 # Define the codec and create VideoWriter object
