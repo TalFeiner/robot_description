@@ -41,30 +41,30 @@ def spawn_square(gazebo_model_srv, obj, reference, mean_vel = [0, 0], cov_vel = 
         x = float(np.random.uniform(coords[1][0], coords[2][0], 1))
         y = coords[1][1] - 1
         if x >= 0:
-            vel = np.random.multivariate_normal([-0.5, -4], [[1, 0], [0, 1]], (1)).reshape(2)
+            vel = np.random.multivariate_normal([-0.1, -1.0], [[0.05, 0], [0, 0.5]], (1)).reshape(2)
         elif x < 0:
-            vel = np.random.multivariate_normal([0.5, -4], [[1, 0], [0, 1]], (1)).reshape(2)    
+            vel = np.random.multivariate_normal([0.1, -1.0], [[0.05, 0], [0, 0.5]], (1)).reshape(2)    
     elif rand is 1:
         x = float(np.random.uniform(coords[1][0], coords[2][0], 1))
         y = coords[3][1] + 1
         if x >= 0:
-            vel = np.random.multivariate_normal([-0.5, 4], [[1, 0], [0, 1]], (1)).reshape(2)
+            vel = np.random.multivariate_normal([-0.1, 1.0], [[0.05, 0], [0, 0.5]], (1)).reshape(2)
         elif x < 0:
-            vel = np.random.multivariate_normal([0.5, 4], [[1, 0], [0, 1]], (1)).reshape(2)     
+            vel = np.random.multivariate_normal([0.1, 1.0], [[0.05, 0], [0, 0.5]], (1)).reshape(2)     
     elif rand is 2:
         y = float(np.random.uniform(coords[3][1], coords[1][1], 1))
         x = coords[2][0] - 1
         if y >= 0:
-            vel = np.random.multivariate_normal([-4, -0.5], [[1, 0], [0, 1]], (1)).reshape(2)
+            vel = np.random.multivariate_normal([-1.0, -0.1], [[0.05, 0], [0, 0.5]], (1)).reshape(2)
         elif y < 0:
-            vel = np.random.multivariate_normal([-4, 0.5], [[1, 0], [0, 1]], (1)).reshape(2)
+            vel = np.random.multivariate_normal([-1.0, 0.1], [[0.05, 0], [0, 0.5]], (1)).reshape(2)
     else:
         y = float(np.random.uniform(coords[3][1], coords[1][1], 1))
         x = coords[1][0] + 1
         if y >= 0:
-            vel = np.random.multivariate_normal([4, -0.5], [[1, 0], [0, 1]], (1)).reshape(2)
+            vel = np.random.multivariate_normal([1.0, -0.1], [[0.05, 0], [0, 0.5]], (1)).reshape(2)
         elif y < 0:
-            vel = np.random.multivariate_normal([4, 0.5], [[1, 0], [0, 1]], (1)).reshape(2)
+            vel = np.random.multivariate_normal([1.0, 0.1], [[0.05, 0], [0, 0.5]], (1)).reshape(2)
 
     print "x, y, rand ", x, y, rand
 
@@ -101,18 +101,18 @@ def spawn_poly(gazebo_model_srv, obj, reference, mean_vel = [0, 0], cov_vel = [[
     if rand is 0:
         x = float(np.random.uniform(coords[1][0], coords[2][0], 1))
         y = float((np.sqrt(3) * x - 1))
-        vel = np.random.multivariate_normal([-0.5, -4], [[1, 0], [0, 1]], (1)).reshape(2)
+        vel = np.random.multivariate_normal([-0.1, -1.0], [[0.05, 0], [0, 0.5]], (1)).reshape(2)
     elif rand is 1:
         x = float(np.random.uniform(coords[1][0], coords[2][0], 1))
         y = float((np.sqrt(3) * x - 1) * (-1))
-        vel = np.random.multivariate_normal([-0.5, 4], [[1, 0], [0, 1]], (1)).reshape(2)
+        vel = np.random.multivariate_normal([-0.1, 1.0], [[0.05, 0], [0, 0.5]], (1)).reshape(2)
     elif rand is 2:
         y = float(np.random.uniform(coords[3][1], coords[2][1], 1))
         x = coords[2][0] - 1
         if y >= 0:
-            vel = np.random.multivariate_normal([-4, -0.5], [[1, 0], [0, 1]], (1)).reshape(2)
+            vel = np.random.multivariate_normal([-1.0, -0.1], [[0.05, 0], [0, 0.5]], (1)).reshape(2)
         elif y < 0:
-            vel = np.random.multivariate_normal([4, 0.5], [[1, 0], [0, 1]], (1)).reshape(2) * -1
+            vel = np.random.multivariate_normal([1.0, 0.1], [[0.05, 0], [0, 0.5]], (1)).reshape(2) * -1
 
     print "x, y, rand ", x, y, rand
     # position = np.array((x, y, 0))

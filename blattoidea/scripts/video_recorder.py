@@ -25,11 +25,12 @@ def _shutdown():
     global out, c, img
     out.release()
     print c, " frames has been captured"
+    rospy.loginfo("total time: " + str(time.now().secs) + " [sec]")
     print "shutdown"
 
 
 def _Img_callback(ros_data, bridge):
-    global out, c
+    global out, c, start, time
 
     # np_arr = np.fromstring(ros_data.data, np.uint8)
     # frame = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
@@ -43,6 +44,8 @@ def _Img_callback(ros_data, bridge):
     cv_image = np.round(cv_image).astype(np.uint8)
 
     if c == 0:
+        time = rospy.Time(0)
+        start = rospy.Time.now().nsecs
         frame_shape = np.shape(cv_image)
         out_fun(frame_shape)
 
@@ -50,7 +53,12 @@ def _Img_callback(ros_data, bridge):
     out.write(cv_image)
 
     # img.append(cv_image)
-    rospy.sleep(0.1)
+    # rospy.sleep(0.1)
+    current = rospy.Time.now().nsecs
+    dt = (current - start) * 1e-9
+    start = current
+    rospy.loginfo("dt " + str(dt) + " [sec]")
+    rospy.loginfo("frame rate " + str(1/dt) + " [Hz]")
     c = 1+c
 
     print "The number amount of captured frames: ", c
