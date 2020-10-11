@@ -157,7 +157,7 @@
     <child
       link="rw_Link" />
     <axis
-      xyz="1 0 0" />
+      xyz="-1 0 0" />
   </joint>
   <link
     name="r_caster_Link">
