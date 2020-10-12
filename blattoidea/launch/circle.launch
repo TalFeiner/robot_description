@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+
+	<group>
+				
+		<param name="sphere_red_description"
+		textfile="$(find blattoidea)/urdf/sphere_red.sdf" />
+		
+		<include file="$(find gazebo_ros)/launch/empty_world.launch" >
+			 <arg name="world_name" value="$(find blattoidea)/worlds/camera.world"/>
+		</include>	 
+		
+		<node
+		name="spawn_sphere_red"
+		pkg="gazebo_ros"
+		type="spawn_model"
+		args="-sdf -model sphere_red -param sphere_red_description -x 2"
+		output="screen"
+		 />
+		 		
+	</group>
+    
+</launch>
