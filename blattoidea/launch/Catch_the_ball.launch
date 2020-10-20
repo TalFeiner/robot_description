@@ -3,8 +3,9 @@
 
 	<group>
 				
-		<param name="robot_description"
-		textfile="$(find blattoidea)/urdf/blattoidea.urdf" />
+		<!--param name="robot_description"
+		textfile="$(find blattoidea)/urdf/blattoidea.urdf" /-->
+		<param name="robot_description" command="$(find xacro)/xacro '$(find blattoidea)/urdf/blattoidea_gazebo.urdf.xacro'" />
 		
 		<param name="sphere_red_description"
 		textfile="$(find blattoidea)/urdf/sphere_red.sdf" />
