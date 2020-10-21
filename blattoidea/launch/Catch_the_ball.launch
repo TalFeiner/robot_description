@@ -2,7 +2,7 @@
 <launch>
 
 	<group>
-				
+		<param name="tf_prefix" value="" />		
 		<!--param name="robot_description"
 		textfile="$(find blattoidea)/urdf/blattoidea.urdf" /-->
 		<param name="robot_description" command="$(find xacro)/xacro '$(find blattoidea)/urdf/blattoidea_gazebo.urdf.xacro'" />
@@ -18,7 +18,7 @@
 		</node>
 
 		<include file="$(find gazebo_ros)/launch/empty_world.launch" >
-			 <!--<arg name="world_name" value="$(find blattoidea)/worlds/random_velocity.world"/>-->
+			 <arg name="world_name" value="$(find blattoidea)/worlds/new_world.world"/>
 		</include>	 
 		<!--<node
 		name="tf_footprint_base"

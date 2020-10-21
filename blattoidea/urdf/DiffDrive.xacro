@@ -27,7 +27,7 @@
 			<plugin ns="DiffDrive" name="differential_drive_controller" 		
 				filename="libgazebo_ros_diff_drive.so">
 				<alwaysOn>true</alwaysOn>
-				<updateRate>10</updateRate>
+				<updateRate>100</updateRate>
 				<leftJoint>lw_joint</leftJoint>
 				<rightJoint>rw_joint</rightJoint>
 				<wheelSeparation>0.34</wheelSeparation>

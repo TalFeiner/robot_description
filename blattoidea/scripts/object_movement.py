@@ -32,6 +32,64 @@ def rotation_z_axis(v, theta):
     return R.dot(v.T)
 
 def spawn_poly(gazebo_model_srv, obj, reference, mean_vel = [0, -1], cov_vel = [[0.3, 0], [0, 3]]):
+    
+    # global coords, model_state
+    # blattoidea_idx = model_state.name.index ("blattoidea")
+    # blattoidea_orientation = np.array((model_state.pose[blattoidea_idx].orientation.x,model_state.pose[blattoidea_idx].orientation.y, model_state.pose[blattoidea_idx].orientation.z, model_state.pose[blattoidea_idx].orientation.w))
+
+    # rand = int(np.random.randint(4, size=1))
+    # if rand is 0:
+    #     x = float(np.random.uniform(coords[1][0], coords[2][0], 1))
+    #     y = coords[1][1] - 1
+    #     if x >= 0:
+    #         vel = np.random.multivariate_normal([-0.1, -1.0], [[0.05, 0], [0, 0.5]], (1)).reshape(2)
+    #     elif x < 0:
+    #         vel = np.random.multivariate_normal([0.1, -1.0], [[0.05, 0], [0, 0.5]], (1)).reshape(2)    
+    # elif rand is 1:
+    #     x = float(np.random.uniform(coords[1][0], coords[2][0], 1))
+    #     y = coords[3][1] + 1
+    #     if x >= 0:
+    #         vel = np.random.multivariate_normal([-0.1, 1.0], [[0.05, 0], [0, 0.5]], (1)).reshape(2)
+    #     elif x < 0:
+    #         vel = np.random.multivariate_normal([0.1, 1.0], [[0.05, 0], [0, 0.5]], (1)).reshape(2)     
+    # elif rand is 2:
+    #     y = float(np.random.uniform(coords[3][1], coords[1][1], 1))
+    #     x = coords[2][0] - 1
+    #     if y >= 0:
+    #         vel = np.random.multivariate_normal([-1.0, -0.1], [[0.05, 0], [0, 0.5]], (1)).reshape(2)
+    #     elif y < 0:
+    #         vel = np.random.multivariate_normal([-1.0, 0.1], [[0.05, 0], [0, 0.5]], (1)).reshape(2)
+    # else:
+    #     y = float(np.random.uniform(coords[3][1], coords[1][1], 1))
+    #     x = coords[1][0] + 1
+    #     if y >= 0:
+    #         vel = np.random.multivariate_normal([1.0, -0.1], [[0.05, 0], [0, 0.5]], (1)).reshape(2)
+    #     elif y < 0:
+    #         vel = np.random.multivariate_normal([1.0, 0.1], [[0.05, 0], [0, 0.5]], (1)).reshape(2)
+
+    # print "x, y, rand ", x, y, rand
+
+    # model_vel = Twist()
+    # model_vel.linear.x = vel[0]
+    # model_vel.linear.y = vel[1]
+    # model_vel.linear.z = 0
+
+    # model_pose = Pose()
+    # model_pose.position.x = x
+    # model_pose.position.y = y
+    # model_pose.position.z = model_state.pose[model_state.name.index(obj)].position.z
+    # model_pose.orientation.x = blattoidea_orientation[0]
+    # model_pose.orientation.y = blattoidea_orientation[1]
+    # model_pose.orientation.z = blattoidea_orientation[2]
+    # model_pose.orientation.w = blattoidea_orientation[3]
+    
+    # model = ModelState()
+    # print "obj", obj
+    # model.model_name = obj
+    # model.twist = model_vel
+    # model.pose = model_pose
+    
+    # gazebo_model_srv(model)
     global coords, model_state
     blattoidea_idx = model_state.name.index ("blattoidea")
     blattoidea_orientation = np.array((model_state.pose[blattoidea_idx].orientation.x,model_state.pose[blattoidea_idx].orientation.y, model_state.pose[blattoidea_idx].orientation.z, model_state.pose[blattoidea_idx].orientation.w))
