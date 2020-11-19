@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
-  <model name='unit_shpere'>
+  <model name='sphere_red'>
     <link name='link_0'>
       <inertial>
         <mass>1</mass>

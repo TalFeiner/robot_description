@@ -95,8 +95,8 @@ def spawn_poly(gazebo_model_srv, obj, reference, mean_vel = [0, -1], cov_vel = [
     blattoidea_orientation = np.array((model_state.pose[blattoidea_idx].orientation.x,model_state.pose[blattoidea_idx].orientation.y, model_state.pose[blattoidea_idx].orientation.z, model_state.pose[blattoidea_idx].orientation.w))
     
     x = float(np.random.uniform(-2, 2, 1))
-    y = float(np.random.uniform(3.5, 5.9, 1))
-    vel = np.random.multivariate_normal([0, -4], [[2, 0], [0, 1]], (1)).reshape(2)
+    y = float(np.random.uniform(5, 19, 1))
+    vel = np.random.multivariate_normal([0, -6], [[2, 0], [0, 1]], (1)).reshape(2)
     
     model_vel = Twist()
     model_vel.linear.x = vel[0]
@@ -182,10 +182,10 @@ def main():
     poly_pub = rospy.Publisher('/poly_pub', PolygonStamped, queue_size=2)
     gazebo_model_srv = rospy.ServiceProxy("gazebo/set_model_state", SetModelState)
 
-    x1 = 4
+    x1 = 10
     y1 = 1
     x2 = -4
-    y2 = 6
+    y2 = 20
     
     poly_coords = [(0.0, y1), (x1, y1), (x1, y2), (x2, y2), (x2, y1), (0.0, y1)]
     triangle = [(0.0,0.0),(0.2,0.0),(0.2,0.8),(-0.2,0.8),(-0.2,0),(0.0,0.0)]
