@@ -95,8 +95,9 @@ def spawn_poly(gazebo_model_srv, obj, reference, mean_vel = [0, -1], cov_vel = [
     blattoidea_orientation = np.array((model_state.pose[blattoidea_idx].orientation.x,model_state.pose[blattoidea_idx].orientation.y, model_state.pose[blattoidea_idx].orientation.z, model_state.pose[blattoidea_idx].orientation.w))
     
     x = float(np.random.uniform(-2, 2, 1))
+    #x=0
     y = float(np.random.uniform(5, 19, 1))
-    vel = np.random.multivariate_normal([0, -6], [[2, 0], [0, 1]], (1)).reshape(2)
+    vel = np.random.multivariate_normal([0, -4], [[0, 0], [0, 1]], (1)).reshape(2)
     
     model_vel = Twist()
     model_vel.linear.x = vel[0]
