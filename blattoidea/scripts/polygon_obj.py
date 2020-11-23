@@ -91,36 +91,67 @@ def spawn_square(gazebo_model_srv, obj, reference, mean_vel = [0, 0], cov_vel = 
     gazebo_model_srv(model)
 
 def spawn_poly(gazebo_model_srv, obj, reference, mean_vel = [0, 0], cov_vel = [[6, 0], [0, 6]]):
+    # global coords, model_state
+    # blattoidea_idx = model_state.name.index ("blattoidea")
+    # # blattoidea_position = np.array((model_state.pose[blattoidea_idx].position.x, model_state.pose[blattoidea_idx].position.y, model_state.pose[blattoidea_idx].position.z))
+    # blattoidea_orientation = np.array((model_state.pose[blattoidea_idx].orientation.x,model_state.pose[blattoidea_idx].orientation.y, model_state.pose[blattoidea_idx].orientation.z, model_state.pose[blattoidea_idx].orientation.w))
+    # # blattoidea_euler = np.array(euler_from_quaternion(blattoidea_orientation))
+ 
+    # rand = int(np.random.randint(3, size=1))
+    # if rand is 0:
+    #     x = float(np.random.uniform(coords[1][0], coords[2][0], 1))
+    #     y = float((np.sqrt(3) * x - 1))
+    #     vel = np.random.multivariate_normal([-0.5, -4], [[1, 0], [0, 1]], (1)).reshape(2)
+    # elif rand is 1:
+    #     x = float(np.random.uniform(coords[1][0], coords[2][0], 1))
+    #     y = float((np.sqrt(3) * x - 1) * (-1))
+    #     vel = np.random.multivariate_normal([-0.5, 4], [[1, 0], [0, 1]], (1)).reshape(2)
+    # elif rand is 2:
+    #     y = float(np.random.uniform(coords[3][1], coords[2][1], 1))
+    #     x = coords[2][0] - 1
+    #     if y >= 0:
+    #         vel = np.random.multivariate_normal([-4, -0.5], [[1, 0], [0, 1]], (1)).reshape(2)
+    #     elif y < 0:
+    #         vel = np.random.multivariate_normal([4, 0.5], [[1, 0], [0, 1]], (1)).reshape(2) * -1
+
+    # print "x, y, rand ", x, y, rand
+    # # position = np.array((x, y, 0))
+    # # x, y, __ = (rotation_z_axis(position, blattoidea_euler[2]).T + blattoidea_position).reshape((3))
+    # # vel = np.array((vel[0], vel[1], 0))
+    # # velx, vely, __ = (rotation_z_axis(vel, blattoidea_euler[2]).T).reshape((3))
+    # # vel = np.array((velx, vely))
+
+    # model_vel = Twist()
+    # model_vel.linear.x = vel[0]
+    # model_vel.linear.y = vel[1]
+    # model_vel.linear.z = 0
+
+    # model_pose = Pose()
+    # model_pose.position.x = x
+    # model_pose.position.y = y
+    # model_pose.position.z = model_state.pose[model_state.name.index(obj)].position.z
+    # model_pose.orientation.x = blattoidea_orientation[0]
+    # model_pose.orientation.y = blattoidea_orientation[1]
+    # model_pose.orientation.z = blattoidea_orientation[2]
+    # model_pose.orientation.w = blattoidea_orientation[3]
+    
+    # model = ModelState()
+    # print "obj", obj
+    # model.model_name = obj
+    # model.twist = model_vel
+    # model.pose = model_pose
+    # model.reference_frame = reference
+    
+    # gazebo_model_srv(model)
     global coords, model_state
     blattoidea_idx = model_state.name.index ("blattoidea")
-    # blattoidea_position = np.array((model_state.pose[blattoidea_idx].position.x, model_state.pose[blattoidea_idx].position.y, model_state.pose[blattoidea_idx].position.z))
     blattoidea_orientation = np.array((model_state.pose[blattoidea_idx].orientation.x,model_state.pose[blattoidea_idx].orientation.y, model_state.pose[blattoidea_idx].orientation.z, model_state.pose[blattoidea_idx].orientation.w))
-    # blattoidea_euler = np.array(euler_from_quaternion(blattoidea_orientation))
- 
-    rand = int(np.random.randint(3, size=1))
-    if rand is 0:
-        x = float(np.random.uniform(coords[1][0], coords[2][0], 1))
-        y = float((np.sqrt(3) * x - 1))
-        vel = np.random.multivariate_normal([-0.5, -4], [[1, 0], [0, 1]], (1)).reshape(2)
-    elif rand is 1:
-        x = float(np.random.uniform(coords[1][0], coords[2][0], 1))
-        y = float((np.sqrt(3) * x - 1) * (-1))
-        vel = np.random.multivariate_normal([-0.5, 4], [[1, 0], [0, 1]], (1)).reshape(2)
-    elif rand is 2:
-        y = float(np.random.uniform(coords[3][1], coords[2][1], 1))
-        x = coords[2][0] - 1
-        if y >= 0:
-            vel = np.random.multivariate_normal([-4, -0.5], [[1, 0], [0, 1]], (1)).reshape(2)
-        elif y < 0:
-            vel = np.random.multivariate_normal([4, 0.5], [[1, 0], [0, 1]], (1)).reshape(2) * -1
-
-    print "x, y, rand ", x, y, rand
-    # position = np.array((x, y, 0))
-    # x, y, __ = (rotation_z_axis(position, blattoidea_euler[2]).T + blattoidea_position).reshape((3))
-    # vel = np.array((vel[0], vel[1], 0))
-    # velx, vely, __ = (rotation_z_axis(vel, blattoidea_euler[2]).T).reshape((3))
-    # vel = np.array((velx, vely))
-
+    
+    x = float(np.random.uniform(-2, 2, 1))
+    #x=0
+    y = float(np.random.uniform(5, 19, 1))
+    vel = np.random.multivariate_normal([0, -4], [[0, 0], [0, 1]], (1)).reshape(2)
+    
     model_vel = Twist()
     model_vel.linear.x = vel[0]
     model_vel.linear.y = vel[1]
@@ -136,7 +167,6 @@ def spawn_poly(gazebo_model_srv, obj, reference, mean_vel = [0, 0], cov_vel = [[
     model_pose.orientation.w = blattoidea_orientation[3]
     
     model = ModelState()
-    print "obj", obj
     model.model_name = obj
     model.twist = model_vel
     model.pose = model_pose
@@ -200,16 +230,24 @@ def main():
     poly_pub = rospy.Publisher('/poly_pub', PolygonStamped, queue_size=2)
     gazebo_model_srv = rospy.ServiceProxy("gazebo/set_model_state", SetModelState)
     
-    x1 = 1.0
-    y1 = np.sqrt(3) * x1 + 1 
-    x2 = 6 
-    y2 = np.sqrt(3) * x2 
-    poly_coords = [(x1, 0.0), (x1, y1), (x2, y2), (x2, -y2), (x1, -y1), (x1, 0.0)]
-    x1 = -10
-    y1 = 10  
-    x2 = 10 
-    y2 = -10 
-    square_coords = [(x1, 0.0), (x1, y1), (x2, y1), (x2, y2), (x1, y2), (x1, 0.0)]
+    # x1 = 1.0
+    # y1 = np.sqrt(3) * x1 + 1 
+    # x2 = 6 
+    # y2 = np.sqrt(3) * x2 
+    # poly_coords = [(x1, 0.0), (x1, y1), (x2, y2), (x2, -y2), (x1, -y1), (x1, 0.0)]
+    # x1 = -10
+    # y1 = 10  
+    # x2 = 10 
+    # y2 = -10 
+    # square_coords = [(x1, 0.0), (x1, y1), (x2, y1), (x2, y2), (x1, y2), (x1, 0.0)]
+
+    x1 = 10
+    y1 = 0.2
+    x2 = -4
+    y2 = 20
+    
+    poly_coords = [(0.0, y1), (x1, y1), (x1, y2), (x2, y2), (x2, y1), (0.0, y1)]
+    # triangle = [(0.0,0.0),(0.2,0.0),(0.2,0.8),(-0.2,0.8),(-0.2,0),(0.0,0.0)]
     
     coords = poly_coords
     poly = camera_poly("base_footprint")
@@ -232,7 +270,7 @@ def main():
             elif model_state.name[ii] in model_list_2:
                 obj_square.append(model_state.name[ii])
         inside_poly = point_poly(tfBuffer, obj_poly, "base_footprint", poly_coords, True)
-        inside_square = point_poly(tfBuffer, obj_square, "base_footprint", square_coords, False)
+        # inside_square = point_poly(tfBuffer, obj_square, "base_footprint", triangle, False)
 
         for ii in range (len(obj_poly)):
             if not inside_poly[ii]:
@@ -241,13 +279,13 @@ def main():
                 except:
                     rospy.logwarn("Spawn model " + obj_poly[ii] + " Failed!!")
                     pass
-        for ii in range (len(obj_square)):
-            if not inside_square[ii]:
-                try:
-                    spawn_square(gazebo_model_srv, obj = obj_square[ii], reference = "base_footprint")
-                except:
-                    rospy.logwarn("Spawn model " + obj_square[ii] + " Failed!!")
-                    pass
+        # for ii in range (len(obj_square)):
+        #     if not inside_square[ii]:
+        #         try:
+        #             spawn_square(gazebo_model_srv, obj = obj_square[ii], reference = "base_footprint")
+        #         except:
+        #             rospy.logwarn("Spawn model " + obj_square[ii] + " Failed!!")
+        #             pass
         # print "inside", inside
         r.sleep()
 

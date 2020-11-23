@@ -85,7 +85,7 @@
 		output="screen"
 		 />
 		 
-		 <node
+		 <!--node
 		name="spawn_cylinder_turquoise"
 		pkg="gazebo_ros"
 		type="spawn_model"
@@ -118,7 +118,7 @@
 		name="fake_joint_calibration"
 		pkg="rostopic"
 		type="rostopic"
-		args="pub /calibrated std_msgs/Bool true" />
+		args="pub /calibrated std_msgs/Bool true" /-->
 		
 	</group>
 
