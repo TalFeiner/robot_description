@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 	<xacro:macro name="kinect">
 			<joint name="base_camera_joint" type="fixed">
-				<origin xyz="0.0 0.17 0.17" rpy="0 0 1.57" />
+				<origin xyz="0.17 0.0 0.17" rpy="0 0 0" />
 				<parent link="base_link" />
 				<origin xyz="0 0 0" rpy="0 0 0" />
 				<child link="camera_link" />

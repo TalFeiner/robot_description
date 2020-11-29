@@ -147,10 +147,10 @@ def spawn_poly(gazebo_model_srv, obj, reference, mean_vel = [0, 0], cov_vel = [[
     blattoidea_idx = model_state.name.index ("blattoidea")
     blattoidea_orientation = np.array((model_state.pose[blattoidea_idx].orientation.x,model_state.pose[blattoidea_idx].orientation.y, model_state.pose[blattoidea_idx].orientation.z, model_state.pose[blattoidea_idx].orientation.w))
     
-    x = float(np.random.uniform(-2, 2, 1))
+    y = float(np.random.uniform(-2, 2, 1))
     #x=0
-    y = float(np.random.uniform(5, 19, 1))
-    vel = np.random.multivariate_normal([0, -4], [[0, 0], [0, 1]], (1)).reshape(2)
+    x = float(np.random.uniform(5, 19, 1))
+    vel = np.random.multivariate_normal([-4, 0], [[0, 0], [0, 1]], (1)).reshape(2)
     
     model_vel = Twist()
     model_vel.linear.x = vel[0]
@@ -241,10 +241,10 @@ def main():
     # y2 = -10 
     # square_coords = [(x1, 0.0), (x1, y1), (x2, y1), (x2, y2), (x1, y2), (x1, 0.0)]
 
-    x1 = 10
-    y1 = 0.2
-    x2 = -4
-    y2 = 20
+    y1 = 10
+    x1 = 0.4
+    y2 = -4
+    x2 = 20
     
     poly_coords = [(0.0, y1), (x1, y1), (x1, y2), (x2, y2), (x2, y1), (0.0, y1)]
     # triangle = [(0.0,0.0),(0.2,0.0),(0.2,0.8),(-0.2,0.8),(-0.2,0),(0.0,0.0)]
