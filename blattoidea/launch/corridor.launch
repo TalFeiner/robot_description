@@ -47,11 +47,9 @@
 		type="joy_node"
 		output="screen" />
 		
-		<node
-		name="teleop_joy"
-		pkg="teleop_twist_joy"
-		type="teleop_node"
-		output="screen" />
+		<node name="teleop_joy" pkg="teleop_twist_joy"	type="teleop_node"	output="screen">
+			<rosparam command="load" file="$(find blattoidea)/config/teleop_joy_config.yaml" />
+		</node>node>
 		
 		<node
 		name="depth_image_compressor"

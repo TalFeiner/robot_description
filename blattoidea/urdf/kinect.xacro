@@ -106,7 +106,7 @@
 					</image>
 					<clip>
 						<near>0.05</near>
-						<far>20</far>
+						<far>4</far>
 					</clip>
 				</camera>
 				<plugin name="depth_controller" filename="libgazebo_ros_openni_kinect.so">
