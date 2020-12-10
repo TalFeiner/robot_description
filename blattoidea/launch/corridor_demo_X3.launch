@@ -25,7 +25,7 @@
 		<arg name="config_topics" default="$(find blattoidea)/config/twist_mux_topics.yaml"/>
 
 
-		<param name="robot_description" command="$(find xacro)/xacro '$(find blattoidea)/urdf/blattoidea_gazebo.urdf.xacro'" />
+		<param name="robot_description" command="$(find xacro)/xacro '$(find blattoidea)/urdf/blattoideaX3_gazebo.urdf.xacro'" />
 
 
 
@@ -52,17 +52,27 @@
 			<remap from="cmd_vel" to="joy_vel"/>
 		</node>
 
+		<node name="depth_image_compressor_center"	pkg="depth2vf"	type="cv_bridge_py2.py" output="screen">
+			<remap from="compressed" to="/kinect/center/depth_cv_bridge/compressed"/>
+			<remap from="image_raw" to="/kinect/center/depth/image_raw"/>
+		</node>
+	
 		<node	name="depth_image_compressor_left"	pkg="depth2vf"	type="cv_bridge_py2.py" output="screen">
-			<remap from="compressed" to="/kinect/depth_cv_bridge/compressed"/>
-			<remap from="image_raw" to="/kinect/depth/image_raw"/>
+			<remap from="compressed" to="/kinect/left/depth_cv_bridge/compressed"/>
+			<remap from="image_raw" to="/kinect/left/depth/image_raw"/>
+		</node>
+	
+		<node	name="depth_image_compressor_right"	pkg="depth2vf"	type="cv_bridge_py2.py" output="screen">
+			<remap from="compressed" to="/kinect/right/depth_cv_bridge/compressed"/>
+			<remap from="image_raw" to="/kinect/right/depth/image_raw"/>
 		</node>
 
 		<node
 		name="vis_obs_avd"
 		pkg="depth2vf"
-		type="occupancy_flow_control_online.py"
+		type="occupancy_flowX3_control_online.py"
 		output="screen"
-		launch-prefix="bash -c 'sleep 5; $0 $@' " />
+		launch-prefix="bash -c 'sleep 7; $0 $@' " />
 
 		<node
 		name="fake_joint_calibration"
