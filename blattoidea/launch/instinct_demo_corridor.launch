@@ -62,7 +62,7 @@
 		pkg="depth2vf"
 		type="instinct.py"
 		output="screen"
-		launch-prefix="bash -c 'sleep 5; $0 $@' " />
+		launch-prefix="bash -c 'sleep 10; $0 $@' " />
 
 		<node
 		name="fake_joint_calibration"
