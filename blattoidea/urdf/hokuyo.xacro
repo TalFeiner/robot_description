@@ -39,8 +39,8 @@
               <horizontal>
                 <!-- The URG-04LX-UG01  has  683 steps with 0.35139 Degree resolution -->
                 <resolution>1</resolution>
-                <max_angle>2</max_angle> <!-- 120 Degree -->
-                <min_angle>-2</min_angle> <!-- -120 Degree -->
+                <max_angle>3.14</max_angle> <!-- 120 Degree -->
+                <min_angle>-3.14</min_angle> <!-- -120 Degree -->
                 <samples>720</samples>
               </horizontal>
             </scan>
@@ -68,4 +68,3 @@
 </xacro:macro>
 
 </robot>
-
