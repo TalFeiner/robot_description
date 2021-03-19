@@ -101,6 +101,7 @@
       link="lw_Link" />
     <axis
       xyz="1 0 0" />
+      <dynamics damping="5.0" friction="10.0"/>
   </joint>
   <link
     name="rw_Link">
@@ -154,6 +155,7 @@
       link="rw_Link" />
     <axis
       xyz="-1 0 0" />
+      <dynamics damping="5.0" friction="10.0"/>
   </joint>
   <link
     name="r_caster_Link">
@@ -207,6 +209,7 @@
       link="r_caster_Link" />
     <axis
       xyz="0 0.99862 0.052537" />
+      <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link
     name="rc_wheel_Link">
@@ -260,6 +263,7 @@
       link="rc_wheel_Link" />
     <axis
       xyz="1 0 0" />
+      <dynamics damping="0.05" friction="0.1"/>
   </joint>
   <link
     name="l_caster_Link">
@@ -313,6 +317,7 @@
       link="l_caster_Link" />
     <axis
       xyz="0 0.99862 0.052537" />
+      <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link
     name="lc_wheel_Link">
@@ -366,6 +371,7 @@
       link="lc_wheel_Link" />
     <axis
       xyz="-1 0 0" />
+      <dynamics damping="0.05" friction="0.1"/>
   </joint>	
 
 
