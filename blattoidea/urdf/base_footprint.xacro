@@ -6,8 +6,8 @@
 		
 		<joint name="base_footprint_base_link_joint" type="fixed">
 			<origin xyz="0 0 0.20"/>
-			<parent link="base_link"/>
-			<child link="base_footprint"/>
+			<parent link="base_footprint"/>
+			<child link="base_link"/>
 		</joint>
 	</xacro:macro>
 </robot>
