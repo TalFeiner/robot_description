@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+
+<node pkg="blattoidea" type="object_movement.py" name="movement_node" output="screen"/>
+
+
+</launch>

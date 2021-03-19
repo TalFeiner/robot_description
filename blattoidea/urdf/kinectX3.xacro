@@ -1,0 +1,413 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+	<xacro:macro name="kinect">
+
+	<!-- left sensor-->
+			<joint name="base_camera_joint_left" type="fixed">
+				<origin xyz="0.1 0.17 0.17" rpy="0 0 1" />
+				<parent link="base_link" />
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<child link="camera_link_left" />
+			  </joint>
+
+		<link name="camera_link_left">
+			<inertial>
+				<mass value="0.01" />
+				<origin xyz="0 0 0" />
+				<inertia ixx="0.001" ixy="0.0" ixz="0.0"
+					iyy="0.001" iyz="0.0"
+					izz="0.001" />
+			</inertial>
+				<visual>
+				<origin xyz=" 0 0 0 " rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://blattoidea/meshes/kinect.dae"/>
+				</geometry>
+			</visual>
+			<collision>
+				<origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+				<geometry>
+					<box size="0.0730 .2760 0.0720"/>
+				</geometry>
+			</collision>
+		</link>
+
+		<joint name="camera_depth_joint_left" type="fixed">
+			<origin xyz="0 0.011 0" rpy="0 0 0" />
+				<parent link="camera_link_left" />
+			<child link="camera_depth_frame_left" />
+		</joint>
+
+		<link name="camera_depth_frame_left">
+			<inertial>
+				<mass value="0.01" />
+				<origin xyz="0 0 0" />
+				<inertia ixx="0.001" ixy="0.0" ixz="0.0"
+					iyy="0.001" iyz="0.0"
+					izz="0.001" />
+			</inertial>
+		</link>
+
+		<joint name="camera_depth_optical_join_left" type="fixed">
+			<origin xyz="0 0 0" rpy="-1.57 0 -1.57" />
+			<parent link="camera_depth_frame_left" />
+			<child link="camera_depth_optical_frame_left" />
+		</joint>
+
+		<link name="camera_depth_optical_frame_left">
+			<inertial>
+				<mass value="0.001" />
+				<origin xyz="0 0 0" />
+				<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+					iyy="0.0001" iyz="0.0"
+					izz="0.0001" />
+			</inertial>
+		</link>
+
+		<joint name="camera_rgb_joint_left" type="fixed">
+			<origin xyz="0 -0.012 0" rpy="0 0 0" />
+			<parent link="camera_link_left" />
+			<child link="camera_rgb_frame_left" />
+		</joint>
+
+		<link name="camera_rgb_frame_left">
+			<inertial>
+				<mass value="0.001" />
+				<origin xyz="0 0 0" />
+				<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+					iyy="0.0001" iyz="0.0"
+					izz="0.0001" />
+			</inertial>
+		</link>
+
+		<joint name="camera_rgb_optical_joint_left" type="fixed">
+			<origin xyz="0 0 0" rpy="-1.57 0 -1.57" />
+			<parent link="camera_rgb_frame_left" />
+			<child link="camera_rgb_optical_frame_left" />
+		</joint>
+
+		<link name="camera_rgb_optical_frame_left">
+			<inertial>
+			<mass value="0.001" />
+			<origin xyz="0 0 0" />
+			<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+				iyy="0.0001" iyz="0.0"
+				izz="0.0001" />
+			</inertial>
+		</link>
+
+		<gazebo reference="camera_link_left">
+			<sensor name="kinect" type="depth">
+				<update_rate>30</update_rate>
+				<camera>
+					<horizontal_fov>1.047198</horizontal_fov>
+					<image>
+						<width>128</width>
+						<height>128</height>
+						<format>R8G8B8</format>
+					</image>
+					<clip>
+						<near>0.05</near>
+						<far>4</far>
+					</clip>
+				</camera>
+				<plugin name="depth_controller_left" filename="libgazebo_ros_openni_kinect.so">
+					<baseline>0.2</baseline>
+					<alwaysOn>true</alwaysOn>
+					<updateRate>30.0</updateRate>
+					<cameraName>kinect_left</cameraName>
+					<imageTopicName>/kinect/left/color/image_raw</imageTopicName>
+					<cameraInfoTopicName>/kinect/left/color/camera_info</cameraInfoTopicName>
+					<depthImageTopicName>/kinect/left/depth/image_raw</depthImageTopicName>
+					<depthImageInfoTopicName>/kinect/left/depth/camera_info</depthImageInfoTopicName>
+					<pointCloudTopicName>/kinect/left/depth/points</pointCloudTopicName>
+					<frameName>camera_link_left</frameName>
+					<pointCloudCutoff>0.05</pointCloudCutoff>
+					<pointCloudCutoffMax>20</pointCloudCutoffMax>
+					<distortionK1>0.0</distortionK1>
+					<distortionK2>0.0</distortionK2>
+					<distortionK3>0.0</distortionK3>
+					<distortionT1>0.0</distortionT1>
+					<distortionT2>0.0</distortionT2>
+					<CxPrime>0</CxPrime>
+					<Cx>0</Cx>
+					<Cy>0</Cy>
+					<focalLength>0</focalLength>
+					<hackBaseline>0</hackBaseline>
+				</plugin>
+			</sensor>
+		</gazebo>
+
+		<!-- center sensor-->
+		<joint name="base_camera_joint_center" type="fixed">
+			<origin xyz="0.17 0.0 0.17" rpy="0 0 0" />
+			<parent link="base_link" />
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<child link="camera_link_center" />
+		  </joint>
+
+	<link name="camera_link_center">
+		<inertial>
+			<mass value="0.01" />
+			<origin xyz="0 0 0" />
+			<inertia ixx="0.001" ixy="0.0" ixz="0.0"
+				iyy="0.001" iyz="0.0"
+				izz="0.001" />
+		</inertial>
+			<visual>
+			<origin xyz=" 0 0 0 " rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://blattoidea/meshes/kinect.dae"/>
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+			<geometry>
+				<box size="0.0730 .2760 0.0720"/>
+			</geometry>
+		</collision>
+	</link>
+
+	<joint name="camera_depth_joint_center" type="fixed">
+		<origin xyz="0 0.011 0" rpy="0 0 0" />
+			<parent link="camera_link_center" />
+		<child link="camera_depth_frame_center" />
+	</joint>
+
+	<link name="camera_depth_frame_center">
+		<inertial>
+			<mass value="0.01" />
+			<origin xyz="0 0 0" />
+			<inertia ixx="0.001" ixy="0.0" ixz="0.0"
+				iyy="0.001" iyz="0.0"
+				izz="0.001" />
+		</inertial>
+	</link>
+
+	<joint name="camera_depth_optical_join_center" type="fixed">
+		<origin xyz="0 0 0" rpy="-1.57 0 -1.57" />
+		<parent link="camera_depth_frame_center" />
+		<child link="camera_depth_optical_frame_center" />
+	</joint>
+
+	<link name="camera_depth_optical_frame_center">
+		<inertial>
+			<mass value="0.001" />
+			<origin xyz="0 0 0" />
+			<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+				iyy="0.0001" iyz="0.0"
+				izz="0.0001" />
+		</inertial>
+	</link>
+
+	<joint name="camera_rgb_joint_center" type="fixed">
+		<origin xyz="0 -0.012 0" rpy="0 0 0" />
+		<parent link="camera_link_center" />
+		<child link="camera_rgb_frame_center" />
+	</joint>
+
+	<link name="camera_rgb_frame_center">
+		<inertial>
+			<mass value="0.001" />
+			<origin xyz="0 0 0" />
+			<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+				iyy="0.0001" iyz="0.0"
+				izz="0.0001" />
+		</inertial>
+	</link>
+
+	<joint name="camera_rgb_optical_joint_center" type="fixed">
+		<origin xyz="0 0 0" rpy="-1.57 0 -1.57" />
+		<parent link="camera_rgb_frame_center" />
+		<child link="camera_rgb_optical_frame_center" />
+	</joint>
+
+	<link name="camera_rgb_optical_frame_center">
+		<inertial>
+		<mass value="0.001" />
+		<origin xyz="0 0 0" />
+		<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+			iyy="0.0001" iyz="0.0"
+			izz="0.0001" />
+		</inertial>
+	</link>
+
+	<gazebo reference="camera_link_center">
+		<sensor name="kinect" type="depth">
+			<update_rate>30</update_rate>
+			<camera>
+				<horizontal_fov>1.047198</horizontal_fov>
+				<image>
+					<width>128</width>
+					<height>128</height>
+					<format>R8G8B8</format>
+				</image>
+				<clip>
+					<near>0.05</near>
+					<far>4</far>
+				</clip>
+			</camera>
+			<plugin name="depth_controller_center" filename="libgazebo_ros_openni_kinect.so">
+				<baseline>0.2</baseline>
+				<alwaysOn>true</alwaysOn>
+				<updateRate>30.0</updateRate>
+				<cameraName>kinect_center</cameraName>
+				<imageTopicName>/kinect/center/color/image_raw</imageTopicName>
+				<cameraInfoTopicName>/kinect/center/color/camera_info</cameraInfoTopicName>
+				<depthImageTopicName>/kinect/center/depth/image_raw</depthImageTopicName>
+				<depthImageInfoTopicName>/kinect/center/depth/camera_info</depthImageInfoTopicName>
+				<pointCloudTopicName>/kinect/center/depth/points</pointCloudTopicName>
+				<frameName>camera_link_center</frameName>
+				<pointCloudCutoff>0.05</pointCloudCutoff>
+				<pointCloudCutoffMax>20</pointCloudCutoffMax>
+				<distortionK1>0.0</distortionK1>
+				<distortionK2>0.0</distortionK2>
+				<distortionK3>0.0</distortionK3>
+				<distortionT1>0.0</distortionT1>
+				<distortionT2>0.0</distortionT2>
+				<CxPrime>0</CxPrime>
+				<Cx>0</Cx>
+				<Cy>0</Cy>
+				<focalLength>0</focalLength>
+				<hackBaseline>0</hackBaseline>
+			</plugin>
+		</sensor>
+	</gazebo>
+
+	<!-- right sensor-->
+	<joint name="base_camera_joint_right" type="fixed">
+		<origin xyz="0.1 -0.17 0.17" rpy="0 0 -1" />
+		<parent link="base_link" />
+		<origin xyz="0 0 0" rpy="0 0 0.0" />
+		<child link="camera_link_right" />
+	  </joint>
+
+<link name="camera_link_right">
+	<inertial>
+		<mass value="0.01" />
+		<origin xyz="0 0 0" />
+		<inertia ixx="0.001" ixy="0.0" ixz="0.0"
+			iyy="0.001" iyz="0.0"
+			izz="0.001" />
+	</inertial>
+		<visual>
+		<origin xyz=" 0 0 0 " rpy="0 0 0" />
+		<geometry>
+			<mesh filename="package://blattoidea/meshes/kinect.dae"/>
+		</geometry>
+	</visual>
+	<collision>
+		<origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+		<geometry>
+			<box size="0.0730 .2760 0.0720"/>
+		</geometry>
+	</collision>
+</link>
+
+<joint name="camera_depth_joint_right" type="fixed">
+	<origin xyz="0 0.011 0" rpy="0 0 0" />
+		<parent link="camera_link_right" />
+	<child link="camera_depth_frame_right" />
+</joint>
+
+<link name="camera_depth_frame_right">
+	<inertial>
+		<mass value="0.01" />
+		<origin xyz="0 0 0" />
+		<inertia ixx="0.001" ixy="0.0" ixz="0.0"
+			iyy="0.001" iyz="0.0"
+			izz="0.001" />
+	</inertial>
+</link>
+
+<joint name="camera_depth_optical_join_right" type="fixed">
+	<origin xyz="0 0 0" rpy="-1.57 0 -1.57" />
+	<parent link="camera_depth_frame_right" />
+	<child link="camera_depth_optical_frame_right" />
+</joint>
+
+<link name="camera_depth_optical_frame_right">
+	<inertial>
+		<mass value="0.001" />
+		<origin xyz="0 0 0" />
+		<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+			iyy="0.0001" iyz="0.0"
+			izz="0.0001" />
+	</inertial>
+</link>
+
+<joint name="camera_rgb_joint_right" type="fixed">
+	<origin xyz="0 -0.012 0" rpy="0 0 0" />
+	<parent link="camera_link_right" />
+	<child link="camera_rgb_frame_right" />
+</joint>
+
+<link name="camera_rgb_frame_right">
+	<inertial>
+		<mass value="0.001" />
+		<origin xyz="0 0 0" />
+		<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+			iyy="0.0001" iyz="0.0"
+			izz="0.0001" />
+	</inertial>
+</link>
+
+<joint name="camera_rgb_optical_joint_right" type="fixed">
+	<origin xyz="0 0 0" rpy="-1.57 0 -1.57" />
+	<parent link="camera_rgb_frame_right" />
+	<child link="camera_rgb_optical_frame_right" />
+</joint>
+
+<link name="camera_rgb_optical_frame_right">
+	<inertial>
+	<mass value="0.001" />
+	<origin xyz="0 0 0" />
+	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		iyy="0.0001" iyz="0.0"
+		izz="0.0001" />
+	</inertial>
+</link>
+
+<gazebo reference="camera_link_right">
+	<sensor name="kinect" type="depth">
+		<update_rate>30</update_rate>
+		<camera>
+			<horizontal_fov>1.047198</horizontal_fov>
+			<image>
+				<width>128</width>
+				<height>128</height>
+				<format>R8G8B8</format>
+			</image>
+			<clip>
+				<near>0.05</near>
+				<far>4</far>
+			</clip>
+		</camera>
+		<plugin name="depth_controller_right" filename="libgazebo_ros_openni_kinect.so">
+			<baseline>0.2</baseline>
+			<alwaysOn>true</alwaysOn>
+			<updateRate>30.0</updateRate>
+			<cameraName>kinect_right</cameraName>
+			<imageTopicName>/kinect/right/color/image_raw</imageTopicName>
+			<cameraInfoTopicName>/kinect/right/color/camera_info</cameraInfoTopicName>
+			<depthImageTopicName>/kinect/right/depth/image_raw</depthImageTopicName>
+			<depthImageInfoTopicName>/kinect/right/depth/camera_info</depthImageInfoTopicName>
+			<pointCloudTopicName>/kinect/right/depth/points</pointCloudTopicName>
+			<frameName>camera_link_right</frameName>
+			<pointCloudCutoff>0.05</pointCloudCutoff>
+			<pointCloudCutoffMax>20</pointCloudCutoffMax>
+			<distortionK1>0.0</distortionK1>
+			<distortionK2>0.0</distortionK2>
+			<distortionK3>0.0</distortionK3>
+			<distortionT1>0.0</distortionT1>
+			<distortionT2>0.0</distortionT2>
+			<CxPrime>0</CxPrime>
+			<Cx>0</Cx>
+			<Cy>0</Cy>
+			<focalLength>0</focalLength>
+			<hackBaseline>0</hackBaseline>
+		</plugin>
+	</sensor>
+</gazebo>
+	</xacro:macro>
+</robot>
