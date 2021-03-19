@@ -13,7 +13,9 @@ def rotation_z_axis(v, theta):
 
 class obj_pose():
 
-    def __init__ (self, robot_model = "blattoidea", model_to_throw = "unit_sphere", min_dist_between_models = 1.6, mean = [4, 0, 0], cov = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]):
+    def __init__ (self, robot_model = "blattoidea", model_to_throw = "unit_sphere",
+                    min_dist_between_models = 1.6,
+                    mean = [3, 0, 0], cov = [[0.5, 0, 0], [0, 0.5, 0], [0, 0, 0.5]]):
         rospy.init_node('gazebo_link_pose', anonymous=True)
         rospy.wait_for_service("gazebo/set_model_state")
         self.robot_model = robot_model
@@ -47,7 +49,7 @@ class obj_pose():
         blattoidea_euler = np.array(euler_from_quaternion(blattoidea_orientation))
 
         position = (rotation_z_axis(np.random.multivariate_normal(self.mean, self.cov, (1)), blattoidea_euler[2]).T + blattoidea_position).reshape((3))
-        vel = (position - blattoidea_position) * -1.2
+        vel = (position - blattoidea_position) * -0.2
 
         print "vel", vel
         model_vel = Twist()

@@ -412,7 +412,7 @@
 	</gazebo>
 	
 	<joint name="base_camera_joint" type="fixed">
-    <origin xyz="0.2 0 0.17" rpy="0 0 0" />
+    <origin xyz="0.2 0.0 0.17" rpy="0 0 0" />
     <parent link="base_link" />
     <origin xyz="0 0 0" rpy="0 0 0" />
     <child link="camera_link" />
@@ -460,7 +460,7 @@
   </link>
 
   <joint name="camera_depth_optical_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="-1.57 0 -1.57" />
+    <origin xyz="0 0 0" rpy="-1.57 0 0" />
     <parent link="camera_depth_frame" />
     <child link="camera_depth_optical_frame" />
   </joint>
@@ -492,7 +492,7 @@
   </link>
 
   <joint name="camera_rgb_optical_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="-1.57 0 -1.57" />
+    <origin xyz="0 0 0" rpy="-1.57 0 0" />
     <parent link="camera_rgb_frame" />
     <child link="camera_rgb_optical_frame" />
   </joint>
@@ -511,10 +511,10 @@
   <sensor name="kinect" type="depth">
     <update_rate>90</update_rate>
     <camera>
-      <horizontal_fov>1.047198</horizontal_fov>
+      <horizontal_fov>3</horizontal_fov>
       <image>
-        <width>1024</width>
-        <height>1024</height>
+        <width>128</width>
+        <height>128</height>
         <format>R8G8B8</format>
       </image>
       <clip>
