@@ -5,24 +5,29 @@
 <robot
   name="blattoidea">
 
-	<link name="base_footprint">
-	</link>
+    <link name="base_footprint">
+    </link>
+    <joint name="base_footprint_base_link_joint" type="fixed">
+        <origin xyz="0 0 0.20"/>
+        <parent link="base_footprint"/>
+        <child link="base_link"/>
+    </joint>
   
   <link
     name="base_link">
     <inertial>
       <origin
-        xyz="0.00325619311123183 -2.68724627668802E-14 0.069208637003638"
+        xyz="0.0045146 -5.164E-15 0.057846"
         rpy="0 0 0" />
       <mass
-        value="8.79255713417749" />
+        value="3.1167" />
       <inertia
-        ixx="0.0734027658932193"
-        ixy="-2.76407451456962E-16"
-        ixz="-1.07879396168151E-16"
-        iyy="0.102931710777646"
-        iyz="-2.50854574138517E-15"
-        izz="0.175786526057808" />
+        ixx="0.019062"
+        ixy="-7.8129E-14"
+        ixz="-1.0872E-16"
+        iyy="0.027663"
+        iyz="-6.4246E-16"
+        izz="0.046295" />
     </inertial>
     <visual>
       <origin
@@ -35,7 +40,7 @@
       <material
         name="">
         <color
-          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+          rgba="0.89804 0.91765 0.92941 1" />
       </material>
     </visual>
     <collision>
@@ -52,17 +57,17 @@
     name="lw_Link">
     <inertial>
       <origin
-        xyz="0.0808553485818156 -1.29938594606305E-13 -7.28085555837255E-06"
+        xyz="0.080855 -1.8595E-13 -7.2809E-06"
         rpy="0 0 0" />
       <mass
-        value="0.977168759094327" />
+        value="0.97717" />
       <inertia
-        ixx="0.00275674165352189"
-        ixy="-1.03507576255232E-14"
-        ixz="-3.90983752277197E-07"
-        iyy="0.00161704630212875"
-        iyz="4.59436432634313E-16"
-        izz="0.00161708194376393" />
+        ixx="0.0027567"
+        ixy="-1.0351E-14"
+        ixz="-3.9098E-07"
+        iyy="0.001617"
+        iyz="4.5745E-16"
+        izz="0.0016171" />
     </inertial>
     <visual>
       <origin
@@ -88,19 +93,12 @@
       </geometry>
     </collision>
   </link>
-  
-	<joint name="base_footprint_base_link_joint" type="fixed">
-		<origin xyz="0 0 0.20"/>
-		<parent link="base_footprint"/>
-		<child link="base_link"/>
-	</joint>
-  
   <joint
     name="lw_joint"
     type="continuous">
     <origin
-      xyz="0.171136704119859 0.122599999999968 0.00200000000000291"
-      rpy="-1.5707963267949 0 1.5707963267949" />
+      xyz="0.17114 0.1226 -0.006"
+      rpy="-1.5708 0 1.5708" />
     <parent
       link="base_link" />
     <child
@@ -112,17 +110,17 @@
     name="rw_Link">
     <inertial>
       <origin
-        xyz="0.0808553485818126 -1.9973606102397E-14 -7.28085556619962E-06"
+        xyz="0.080855 2.7863E-14 -7.2809E-06"
         rpy="0 0 0" />
       <mass
-        value="0.977168759094326" />
+        value="0.97717" />
       <inertia
-        ixx="0.00275674165352189"
-        ixy="-1.03497032811902E-14"
-        ixz="-3.909837522766E-07"
-        iyy="0.00161704630212875"
-        iyz="4.57357843709215E-16"
-        izz="0.00161708194376393" />
+        ixx="0.0027567"
+        ixy="-1.035E-14"
+        ixz="-3.9098E-07"
+        iyy="0.001617"
+        iyz="4.5874E-16"
+        izz="0.0016171" />
     </inertial>
     <visual>
       <origin
@@ -152,8 +150,8 @@
     name="rw_joint"
     type="continuous">
     <origin
-      xyz="0.171136704119851 -0.122600000000032 0.00199999999999654"
-      rpy="1.5707963267949 0 -1.5707963267949" />
+      xyz="0.17114 -0.1226 -0.006"
+      rpy="1.5708 0 -1.5708" />
     <parent
       link="base_link" />
     <child
@@ -162,73 +160,20 @@
       xyz="-1 0 0" />
   </joint>
   <link
-    name="rc_segment_Link">
-    <inertial>
-      <origin
-        xyz="-0.00199999999999995 0.0507028605154515 -0.0223671012384312"
-        rpy="0 0 0" />
-      <mass
-        value="0.0456806083099006" />
-      <inertia
-        ixx="1.69365480799051E-05"
-        ixy="-2.61652032862409E-08"
-        ixz="4.97343727280345E-07"
-        iyy="2.84210040220917E-05"
-        iyz="8.69198280165373E-07"
-        izz="1.19451595992085E-05" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://blattoidea/meshes/rc_segment_Link.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://blattoidea/meshes/rc_segment_Link.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="rc_segment_joint"
-    type="fixed">
-    <origin
-      xyz="-0.134677221305586 -0.13557306854595 -0.0529999999999956"
-      rpy="1.51823488521493 0 1.66840935514672" />
-    <parent
-      link="base_link" />
-    <child
-      link="rc_segment_Link" />
-    <axis
-      xyz="0 0 0" />
-  </joint>
-  <link
     name="r_caster_Link">
     <inertial>
       <origin
-        xyz="-1.88672009127089E-08 0.0301165962341867 0.0154473114257115"
+        xyz="-1.8867E-08 -0.017703 0.012932"
         rpy="0 0 0" />
       <mass
-        value="0.0264605949467884" />
+        value="0.026461" />
       <inertia
-        ixx="1.12179776898766E-05"
-        ixy="3.27558773113359E-12"
-        ixz="-1.14314616958156E-12"
-        iyy="9.11782185184723E-06"
-        iyz="2.51887439877834E-06"
-        izz="1.0861662050651E-05" />
+        ixx="1.1218E-05"
+        ixy="3.2756E-12"
+        ixz="-1.1431E-12"
+        iyy="9.1178E-06"
+        iyz="2.5189E-06"
+        izz="1.0862E-05" />
     </inertial>
     <visual>
       <origin
@@ -241,7 +186,7 @@
       <material
         name="">
         <color
-          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+          rgba="0.89804 0.91765 0.92941 1" />
       </material>
     </visual>
     <collision>
@@ -258,30 +203,30 @@
     name="r_caster_joint"
     type="continuous">
     <origin
-      xyz="-0.00200000000001023 0.00131343107405157 -0.0249654741355608"
-      rpy="3.03621882782983 0.0974777924807896 3.13644802921112" />
+      xyz="-0.15936 -0.14 -0.0051144"
+      rpy="1.5182 0 -1.5708" />
     <parent
-      link="rc_segment_Link" />
+      link="base_link" />
     <child
       link="r_caster_Link" />
     <axis
-      xyz="0 0.99861896542272 0.052537242962078" />
+      xyz="0 0.99862 0.052537" />
   </joint>
   <link
     name="rc_wheel_Link">
     <inertial>
       <origin
-        xyz="1.84574577843932E-14 -5.76969028109886E-14 7.27196081129478E-15"
+        xyz="2.8588E-14 -7.8992E-14 2.9227E-14"
         rpy="0 0 0" />
       <mass
-        value="0.0498995656286701" />
+        value="0.0499" />
       <inertia
-        ixx="3.5408269639804E-05"
-        ixy="5.96020113711229E-23"
-        ixz="-1.24164310314982E-22"
-        iyy="1.84620775423207E-05"
-        iyz="-1.8355998794623E-21"
-        izz="1.84620775423207E-05" />
+        ixx="3.5408E-05"
+        ixy="1.3756E-22"
+        ixz="-9.8358E-23"
+        iyy="1.8462E-05"
+        iyz="-2.8196E-22"
+        izz="1.8462E-05" />
     </inertial>
     <visual>
       <origin
@@ -311,8 +256,8 @@
     name="rc_wheel_joint"
     type="continuous">
     <origin
-      xyz="0 -0.0013134310740316 0.0249654741355853"
-      rpy="-0.0525614415799654 0 3.14159265358979" />
+      xyz="0 -0.049133 0.02245"
+      rpy="-0.052561 0 3.1416" />
     <parent
       link="r_caster_Link" />
     <child
@@ -321,73 +266,20 @@
       xyz="1 0 0" />
   </joint>
   <link
-    name="lc_segment_Link">
-    <inertial>
-      <origin
-        xyz="-0.00199999999996911 0.0507028605154611 -0.0223671012384277"
-        rpy="0 0 0" />
-      <mass
-        value="0.0456806083099005" />
-      <inertia
-        ixx="1.69365480799051E-05"
-        ixy="-2.61652032862427E-08"
-        ixz="4.97343727280349E-07"
-        iyy="2.84210040220916E-05"
-        iyz="8.69198280165364E-07"
-        izz="1.19451595992085E-05" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://blattoidea/meshes/lc_segment_Link.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://blattoidea/meshes/lc_segment_Link.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="lc_segment_joint"
-    type="fixed">
-    <origin
-      xyz="-0.184049370454713 0.135573068545923 -0.0529999999999954"
-      rpy="1.51823488521493 0 -1.47318329844307" />
-    <parent
-      link="base_link" />
-    <child
-      link="lc_segment_Link" />
-    <axis
-      xyz="0 0 0" />
-  </joint>
-  <link
     name="l_caster_Link">
     <inertial>
       <origin
-        xyz="-1.88672001910639E-08 0.0301165962341981 0.01544731142568"
+        xyz="-1.8867E-08 -0.017703 0.012932"
         rpy="0 0 0" />
       <mass
-        value="0.0264605949467886" />
+        value="0.026461" />
       <inertia
-        ixx="1.12179776898766E-05"
-        ixy="3.27558775107431E-12"
-        ixz="-1.14314611888054E-12"
-        iyy="9.11782185184734E-06"
-        iyz="2.51887439877831E-06"
-        izz="1.08616620506511E-05" />
+        ixx="1.1218E-05"
+        ixy="3.2756E-12"
+        ixz="-1.1431E-12"
+        iyy="9.1178E-06"
+        iyz="2.5189E-06"
+        izz="1.0862E-05" />
     </inertial>
     <visual>
       <origin
@@ -400,7 +292,7 @@
       <material
         name="">
         <color
-          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+          rgba="0.89804 0.91765 0.92941 1" />
       </material>
     </visual>
     <collision>
@@ -417,30 +309,30 @@
     name="l_caster_joint"
     type="continuous">
     <origin
-      xyz="-0.00199999999996087 0.00131343107405134 -0.0249654741355564"
-      rpy="0.00025094260002981 -0.0974777924807896 -0.00514462437867282" />
+      xyz="-0.15936 0.14 -0.0051144"
+      rpy="1.5182 0 -1.5708" />
     <parent
-      link="lc_segment_Link" />
+      link="base_link" />
     <child
       link="l_caster_Link" />
     <axis
-      xyz="0 0.99861896542272 0.052537242962078" />
+      xyz="0 0.99862 0.052537" />
   </joint>
   <link
     name="lc_wheel_Link">
     <inertial>
       <origin
-        xyz="1.79023462720806E-14 2.96013213940682E-14 -2.99760216648792E-15"
+        xyz="3.7886E-14 3.1898E-14 1.2351E-14"
         rpy="0 0 0" />
       <mass
-        value="0.0498995656286702" />
+        value="0.0499" />
       <inertia
-        ixx="3.5408269639804E-05"
-        ixy="5.3766926472594E-22"
-        ixz="-9.59706170050521E-22"
-        iyy="1.84620775423207E-05"
-        iyz="2.30363884891597E-21"
-        izz="1.84620775423207E-05" />
+        ixx="3.5408E-05"
+        ixy="5.3767E-22"
+        ixz="-9.5971E-22"
+        iyy="1.8462E-05"
+        iyz="2.3036E-21"
+        izz="1.8462E-05" />
     </inertial>
     <visual>
       <origin
@@ -470,8 +362,8 @@
     name="lc_wheel_joint"
     type="continuous">
     <origin
-      xyz="0 -0.00131343107400735 0.0249654741355546"
-      rpy="3.08903121200983 0 3.14159265358979" />
+      xyz="0 -0.049133 0.02245"
+      rpy="3.089 0 3.1416" />
     <parent
       link="l_caster_Link" />
     <child
@@ -617,7 +509,7 @@
   
   <gazebo reference="camera_link">
   <sensor name="kinect" type="depth">
-    <update_rate>40</update_rate>
+    <update_rate>90</update_rate>
     <camera>
       <horizontal_fov>3</horizontal_fov>
       <image>
@@ -633,7 +525,7 @@
     <plugin name="depth_controller" filename="libgazebo_ros_openni_kinect.so">
       <baseline>0.2</baseline>
       <alwaysOn>true</alwaysOn>
-      <updateRate>40.0</updateRate>
+      <updateRate>0.0</updateRate>
       <cameraName>kinect_ir</cameraName>
       <imageTopicName>/kinect/color/image_raw</imageTopicName>
       <cameraInfoTopicName>/kinect/color/camera_info</cameraInfoTopicName>
@@ -642,7 +534,7 @@
       <pointCloudTopicName>/kinect/depth/points</pointCloudTopicName>
       <frameName>camera_link</frameName>
       <pointCloudCutoff>0.05</pointCloudCutoff>
-      <pointCloudCutoffMax>20.0</pointCloudCutoffMax>
+      <pointCloudCutoffMax>20</pointCloudCutoffMax>
       <distortionK1>0.0</distortionK1>
       <distortionK2>0.0</distortionK2>
       <distortionK3>0.0</distortionK3>
