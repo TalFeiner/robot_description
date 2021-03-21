@@ -36,7 +36,7 @@
 				<odometryTopic>/odom</odometryTopic>
 				<odometryFrame>odom</odometryFrame>
 				<robotBaseFrame>base_footprint</robotBaseFrame>
-				<publishWheelJointState>true</publishWheelJointState>
+				<publishWheelJointState>false</publishWheelJointState>
 				<robotNamespace>/</robotNamespace>
 				<rosDebugLevel></rosDebugLevel>
 				<publishWheelTF>false</publishWheelTF>

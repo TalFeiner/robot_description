@@ -35,6 +35,8 @@
 		<remap from="/joint_states" to="/joint_states" />
 		<remap from="robot_description" to="robot_description" />
 	</node>
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    </node>
 
 	<param name="robot_description" command="$(find xacro)/xacro '$(find blattoidea)/urdf/blattoidea_gazebo.urdf.xacro'" />
 

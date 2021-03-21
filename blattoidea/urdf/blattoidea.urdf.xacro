@@ -199,7 +199,7 @@
   </link>
   <joint
     name="r_caster_joint"
-    type="fixed">
+    type="continuous">
     <origin
       xyz="-0.15936 -0.14 -0.0051144"
       rpy="1.5182 0 -1.5708" />
@@ -253,7 +253,7 @@
   </link>
   <joint
     name="rc_wheel_joint"
-    type="fixed">
+    type="continuous">
     <origin
       xyz="0 -0.049133 0.02245"
       rpy="-0.052561 0 3.1416" />
@@ -307,7 +307,7 @@
   </link>
   <joint
     name="l_caster_joint"
-    type="fixed">
+    type="continuous">
     <origin
       xyz="-0.15936 0.14 -0.0051144"
       rpy="1.5182 0 -1.5708" />
@@ -361,7 +361,7 @@
   </link>
   <joint
     name="lc_wheel_joint"
-    type="fixed">
+    type="continuous">
     <origin
       xyz="0 -0.049133 0.02245"
       rpy="3.089 0 3.1416" />
@@ -372,5 +372,10 @@
     <axis
       xyz="-1 0 0" />
       <dynamics damping="0.0" friction="0.0"/>
-  </joint>	
+  </joint>
+  
+
+     <plugin name="JointStatePublisher" filename="libJointStatePublisher.so"/>
+  
 </robot>
+
