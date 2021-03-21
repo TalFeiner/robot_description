@@ -52,7 +52,7 @@
           </ray>
 
           <plugin name="laser" filename="libgazebo_ros_laser.so" >
-              <!--<robotNamespace></robotNamespace>-->
+              <robotNamespace>/</robotNamespace>
             <topicName>scan</topicName>
             <frameName>base_laser</frameName>
           </plugin>

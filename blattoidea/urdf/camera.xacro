@@ -105,6 +105,7 @@
 			<distortionK3>0.0</distortionK3>
 			<distortionT1>0.0</distortionT1>
 			<distortionT2>0.0</distortionT2>
+			<robotNamespace>/</robotNamespace>
 		      </plugin>
 		    </sensor>
 		  </gazebo>

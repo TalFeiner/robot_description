@@ -1,128 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <launch>
 
-	<!--<node
-	name="tf_footprint_base"
-	pkg="tf"
-	type="static_transform_publisher"
-	args="0 0 0 0 0 0 base_link base_footprint 40" />-->
 	<node
 	name="tf_world_map"
 	pkg="tf"
 	type="static_transform_publisher"
 	args="0 0 0 0 0 0 world map 40" />
-	<node
-	name="tf_map_odom"
-	pkg="tf"
-	type="static_transform_publisher"
-	args="0 0 0 0 0 0 map odom 40" />
-
-	<group>
 				
-		<param name="tf_prefix" value="" />
-		<param name="robot_description" command="$(find xacro)/xacro '$(find blattoidea)/urdf/blattoidea_gazebo.urdf.xacro'" />
+	<!--<param name="tf_prefix" value="" />-->
 
-		<!--<param name="robot_description"
-		textfile="$(find blattoidea)/urdf/blattoidea.urdf" />-->
-		
-		<param name="sphere_red_description"
-		textfile="$(find blattoidea)/urdf/sphere_red.sdf" />
-		<param name="sphere_blue_description"
-		textfile="$(find blattoidea)/urdf/sphere_blue.sdf" />
-		<param name="sphere_green_description"
-		textfile="$(find blattoidea)/urdf/sphere_green.sdf" />
-		<param name="sphere_yellow_description"
-		textfile="$(find blattoidea)/urdf/sphere_yellow.sdf" />
-		
-		<param name="cylinder_turquoise_description"
-		textfile="$(find blattoidea)/urdf/cylinder_turquoise.sdf" />
-		<param name="cylinder_purple_description"
-		textfile="$(find blattoidea)/urdf/cylinder_purple.sdf" />
-		<param name="cylinder_orange_description"
-		textfile="$(find blattoidea)/urdf/cylinder_orange.sdf" />
-		<param name="cylinder_gold_description"
-		textfile="$(find blattoidea)/urdf/cylinder_gold.sdf" />
-		
-		<!-- convert joint states to TF transforms for rviz, etc -->
-		<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
-			<remap from="/joint_states" to="joint_states" />
-			<remap from="robot_description" to="robot_description" />
-		</node>
+	<!--<param name="robot_description"
+	textfile="$(find blattoidea)/urdf/blattoidea.urdf" />-->
+	
+	<!--<param name="sphere_red_description"
+	textfile="$(find blattoidea)/urdf/sphere_red.sdf" />
+	<param name="sphere_blue_description"
+	textfile="$(find blattoidea)/urdf/sphere_blue.sdf" />
+	<param name="sphere_green_description"
+	textfile="$(find blattoidea)/urdf/sphere_green.sdf" />
+	<param name="sphere_yellow_description"
+	textfile="$(find blattoidea)/urdf/sphere_yellow.sdf" />
+	
+	<param name="cylinder_turquoise_description"
+	textfile="$(find blattoidea)/urdf/cylinder_turquoise.sdf" />
+	<param name="cylinder_purple_description"
+	textfile="$(find blattoidea)/urdf/cylinder_purple.sdf" />
+	<param name="cylinder_orange_description"
+	textfile="$(find blattoidea)/urdf/cylinder_orange.sdf" />
+	<param name="cylinder_gold_description"
+	textfile="$(find blattoidea)/urdf/cylinder_gold.sdf" />-->
+	
+	<!-- convert joint states to TF transforms for rviz, etc -->
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+		<remap from="/joint_states" to="/joint_states" />
+		<remap from="robot_description" to="robot_description" />
+	</node>
 
-		<node
-		name="spawn_model"
-		pkg="gazebo_ros"
-		type="spawn_model"
-		args="-urdf -model blattoidea -param robot_description"
-		output="screen" />
+	<param name="robot_description" command="$(find xacro)/xacro '$(find blattoidea)/urdf/blattoidea_gazebo.urdf.xacro'" />
 
-		<node
-		name="fake_joint_calibration"
-		pkg="rostopic"
-		type="rostopic"
-		args="pub /calibrated std_msgs/Bool true" />
-		
-		<node
-		name="spawn_sphere_red"
-		pkg="gazebo_ros"
-		type="spawn_model"
-		args="-sdf -model sphere_red -param sphere_red_description -x 20"
-		output="screen"
-		 />
-		<node
-		name="spawn_sphere_blue"
-		pkg="gazebo_ros"
-		type="spawn_model"
-		args="-sdf -model sphere_blue -param sphere_blue_description -x -20"
-		output="screen"
-		 />
-		<node
-		name="spawn_sphere_green"
-		pkg="gazebo_ros"
-		type="spawn_model"
-		args="-sdf -model sphere_green -param sphere_green_description -x 20 -y 20"
-		output="screen"
-		 />
-		<node
-		name="spawn_sphere_yellow"
-		pkg="gazebo_ros"
-		type="spawn_model"
-		args="-sdf -model sphere_yellow -param sphere_yellow_description -x 20 -y -20"
-		output="screen"
-		 />
+	<node
+	name="spawn_model"
+	pkg="gazebo_ros"
+	type="spawn_model"
+	args="-urdf -model blattoidea -param robot_description"
+	output="screen" />
+	
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+              <!--<arg name="world_name" value="$(arg world_name)"/>-->
+	      <arg name="gui" value="true"/>
+        <arg name="paused" value="false"/>
+	</include>
+	
+	<!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find blattoidea)/config/diff_drive.yaml" command="load"/>
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/" args="lw_joint_position_controller rw_joint_position_controller joint_state_controller"/>
+
+	<node
+	name="fake_joint_calibration"
+	pkg="rostopic"
+	type="rostopic"
+	args="pub /calibrated std_msgs/Bool true" />
+	
+	<!--<node
+	name="spawn_sphere_red"
+	pkg="gazebo_ros"
+	type="spawn_model"
+	args="-sdf -model sphere_red -param sphere_red_description -x 20"
+	output="screen"
+	 />
+	<node
+	name="spawn_sphere_blue"
+	pkg="gazebo_ros"
+	type="spawn_model"
+	args="-sdf -model sphere_blue -param sphere_blue_description -x -20"
+	output="screen"
+	 />
+	<node
+	name="spawn_sphere_green"
+	pkg="gazebo_ros"
+	type="spawn_model"
+	args="-sdf -model sphere_green -param sphere_green_description -x 20 -y 20"
+	output="screen"
+	 />
+	<node
+	name="spawn_sphere_yellow"
+	pkg="gazebo_ros"
+	type="spawn_model"
+	args="-sdf -model sphere_yellow -param sphere_yellow_description -x 20 -y -20"
+	output="screen"
+	 />-->
+	 
+	 <!--node
+	name="spawn_cylinder_turquoise"
+	pkg="gazebo_ros"
+	type="spawn_model"
+	args="-sdf -model cylinder_turquoise -param cylinder_turquoise_description -x -20 -y -20"
+	output="screen"
+	 />
+	 <node
+	name="spawn_cylinder_gold"
+	pkg="gazebo_ros"
+	type="spawn_model"
+	args="-sdf -model cylinder_gold -param cylinder_gold_description -x -20 -y 20"
+	output="screen"
+	 />
+	 <node
+	name="spawn_cylinder_purple"
+	pkg="gazebo_ros"
+	type="spawn_model"
+	args="-sdf -model cylinder_purple -param cylinder_purple_description -x 0 -y 20"
+	output="screen"
+	 />
+	 <node
+	name="spawn_cylinder_orange"
+	pkg="gazebo_ros"
+	type="spawn_model"
+	args="-sdf -model cylinder_orange -param cylinder_orange_description -x 0 -y -20"
+	output="screen"
+	 />-->
 		 
-		 <!--node
-		name="spawn_cylinder_turquoise"
-		pkg="gazebo_ros"
-		type="spawn_model"
-		args="-sdf -model cylinder_turquoise -param cylinder_turquoise_description -x -20 -y -20"
-		output="screen"
-		 />
-		 <node
-		name="spawn_cylinder_gold"
-		pkg="gazebo_ros"
-		type="spawn_model"
-		args="-sdf -model cylinder_gold -param cylinder_gold_description -x -20 -y 20"
-		output="screen"
-		 />
-		 <node
-		name="spawn_cylinder_purple"
-		pkg="gazebo_ros"
-		type="spawn_model"
-		args="-sdf -model cylinder_purple -param cylinder_purple_description -x 0 -y 20"
-		output="screen"
-		 />
-		 <node
-		name="spawn_cylinder_orange"
-		pkg="gazebo_ros"
-		type="spawn_model"
-		args="-sdf -model cylinder_orange -param cylinder_orange_description -x 0 -y -20"
-		output="screen"
-		 />-->
-		 
-		
-		
-	</group>
 
 	<!--<include file="$(find blattoidea)/launch/polygon_movement.launch" >
 	</include>-->

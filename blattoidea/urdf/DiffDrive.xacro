@@ -12,7 +12,7 @@
 				</actuator>
 			</transmission>
 
-			<transmission name="r_tran">
+		<transmission name="r_tran">
 			<type>transmission_interface/SimpleTransmission</type>
 			<joint name="rw_joint">
 				<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
@@ -24,7 +24,7 @@
 		</transmission>
 
 		<gazebo>
-			<plugin ns="DiffDrive" name="differential_drive_controller" 		
+			<plugin name="differential_drive_controller" 		
 				filename="libgazebo_ros_diff_drive.so">
 				<alwaysOn>true</alwaysOn>
 				<updateRate>10</updateRate>
@@ -32,18 +32,17 @@
 				<rightJoint>rw_joint</rightJoint>
 				<wheelSeparation>0.44</wheelSeparation>
 				<wheelDiameter>0.1651</wheelDiameter>
-				<torque>1.41</torque>
 				<commandTopic>cmd_vel</commandTopic>
-				<odometryTopic>odom</odometryTopic>
+				<odometryTopic>/odom</odometryTopic>
 				<odometryFrame>odom</odometryFrame>
 				<robotBaseFrame>base_footprint</robotBaseFrame>
 				<publishWheelJointState>true</publishWheelJointState>
-
+				<robotNamespace>/</robotNamespace>
 				<rosDebugLevel></rosDebugLevel>
 				<publishWheelTF>false</publishWheelTF>
 				<publishOdomTF>true</publishOdomTF>
 				<wheelAcceleration>0</wheelAcceleration>
-				<wheelTorque>5</wheelTorque>
+				<wheelTorque>1.41</wheelTorque>
 				<odometrySource>world</odometrySource>
 				<publishTf>1</publishTf>
 			</plugin>
