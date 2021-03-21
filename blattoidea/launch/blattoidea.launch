@@ -6,6 +6,40 @@
 	pkg="tf"
 	type="static_transform_publisher"
 	args="0 0 0 0 0 0 world map 40" />
+	
+	<param name="robot_description" command="$(find xacro)/xacro '$(find blattoidea)/urdf/blattoidea_gazebo.urdf.xacro'" />
+	
+	<!-- convert joint states to TF transforms for rviz, etc -->
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+		<remap from="/joint_states" to="/joint_states" />
+		<remap from="robot_description" to="robot_description" />
+	</node>
+
+	<node
+	name="spawn_model"
+	pkg="gazebo_ros"
+	type="spawn_model"
+	args="-urdf -model blattoidea -param robot_description"
+	output="screen" />
+	
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+              <!--<arg name="world_name" value="$(arg world_name)"/>-->
+	      <arg name="gui" value="true"/>
+        <arg name="paused" value="false"/>
+	</include>
+	
+	<!-- Load joint controller configurations from YAML file to parameter server -->
+  <!--<rosparam file="$(find blattoidea)/config/diff_drive.yaml" command="load"/>-->
+
+  <!-- load the controllers -->
+  <!--<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/" args="lw_joint_position_controller rw_joint_position_controller joint_state_controller"/>-->
+
+	<!--<node
+	name="fake_joint_calibration"
+	pkg="rostopic"
+	type="rostopic"
+	args="pub /calibrated std_msgs/Bool true" />-->
 				
 	<!--<param name="tf_prefix" value="" />-->
 
@@ -29,41 +63,7 @@
 	textfile="$(find blattoidea)/urdf/cylinder_orange.sdf" />
 	<param name="cylinder_gold_description"
 	textfile="$(find blattoidea)/urdf/cylinder_gold.sdf" />-->
-	
-	<!-- convert joint states to TF transforms for rviz, etc -->
-	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
-		<remap from="/joint_states" to="/joint_states" />
-		<remap from="robot_description" to="robot_description" />
-	</node>
 
-	<param name="robot_description" command="$(find xacro)/xacro '$(find blattoidea)/urdf/blattoidea_gazebo.urdf.xacro'" />
-
-	<node
-	name="spawn_model"
-	pkg="gazebo_ros"
-	type="spawn_model"
-	args="-urdf -model blattoidea -param robot_description"
-	output="screen" />
-	
-	<include file="$(find gazebo_ros)/launch/empty_world.launch">
-              <!--<arg name="world_name" value="$(arg world_name)"/>-->
-	      <arg name="gui" value="true"/>
-        <arg name="paused" value="false"/>
-	</include>
-	
-	<!-- Load joint controller configurations from YAML file to parameter server -->
-  <rosparam file="$(find blattoidea)/config/diff_drive.yaml" command="load"/>
-
-  <!-- load the controllers -->
-  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" ns="/" args="lw_joint_position_controller rw_joint_position_controller joint_state_controller"/>
-
-	<node
-	name="fake_joint_calibration"
-	pkg="rostopic"
-	type="rostopic"
-	args="pub /calibrated std_msgs/Bool true" />
-	
 	<!--<node
 	name="spawn_sphere_red"
 	pkg="gazebo_ros"
