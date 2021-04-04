@@ -28,18 +28,18 @@
 				filename="libgazebo_ros_diff_drive.so">
 				<alwaysOn>true</alwaysOn>
 				<updateRate>10</updateRate>
-				<leftJoint>lw_joint</leftJoint>
-				<rightJoint>rw_joint</rightJoint>
+				<leftJoint>rw_joint</leftJoint>
+				<rightJoint>lw_joint</rightJoint>
 				<wheelSeparation>0.44</wheelSeparation>
 				<wheelDiameter>0.1651</wheelDiameter>
 				<commandTopic>cmd_vel</commandTopic>
 				<odometryTopic>/odom</odometryTopic>
 				<odometryFrame>odom</odometryFrame>
 				<robotBaseFrame>base_footprint</robotBaseFrame>
-				<publishWheelJointState>true</publishWheelJointState>
+				<publishWheelJointState>flase</publishWheelJointState>
 				<robotNamespace>/</robotNamespace>
 				<rosDebugLevel></rosDebugLevel>
-				<publishWheelTF>false</publishWheelTF>
+				<publishWheelTF>flase</publishWheelTF>
 				<publishOdomTF>true</publishOdomTF>
 				<wheelAcceleration>0</wheelAcceleration>
 				<wheelTorque>1.41</wheelTorque>
