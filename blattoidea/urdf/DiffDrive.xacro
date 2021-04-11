@@ -36,10 +36,10 @@
 				<odometryTopic>/odom</odometryTopic>
 				<odometryFrame>odom</odometryFrame>
 				<robotBaseFrame>base_footprint</robotBaseFrame>
-				<publishWheelJointState>flase</publishWheelJointState>
+				<publishWheelJointState>false</publishWheelJointState>
 				<robotNamespace>/</robotNamespace>
 				<rosDebugLevel></rosDebugLevel>
-				<publishWheelTF>flase</publishWheelTF>
+				<publishWheelTF>false</publishWheelTF>
 				<publishOdomTF>true</publishOdomTF>
 				<wheelAcceleration>0</wheelAcceleration>
 				<wheelTorque>1.41</wheelTorque>
