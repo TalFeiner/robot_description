@@ -16,3 +16,10 @@ topics:
   topic   : joy_vel
   timeout : 0.5
   priority: 9
+  
+-
+  name    : potential
+  topic   : pot_vel
+  timeout : 0.5
+  priority: 8
+
