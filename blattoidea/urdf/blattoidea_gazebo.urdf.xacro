@@ -16,7 +16,8 @@
 	<xacro:include filename="$(find blattoidea)/urdf/kinect.xacro"/>
 	<xacro:kinect/>
 
-
+	<xacro:include filename="$(find blattoidea)/urdf/GPS.xacro"/>
+	<xacro:GPS/>
 
 	<!-- <xacro:include filename="$(find blattoidea)/urdf/camera.xacro"/>
 	<xacro:rgb_camera/> -->

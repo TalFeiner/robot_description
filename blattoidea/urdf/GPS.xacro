@@ -11,9 +11,8 @@
 		<link name="GPS_link">
 		</link>
 
-		
 
-		<gazebo reference="GPS_link">
+		<gazebo>
 				<plugin name="gps_controller" filename="libhector_gazebo_ros_gps.so">
 					<alwayson>true</alwayson>
 					<updaterate>1.0</updaterate>
