@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 <!-- Front Laser -->
-<xacro:macro name="laser" params="name parent xyz rpy meshes" >
+<xacro:macro name="laser" params="name parent xyz rpy meshes gpu" >
 
   <joint name="${parent}_${name}_joint" type="fixed">
       <axis xyz="0 0 1" />
@@ -51,11 +51,19 @@
             </range>
           </ray>
 
+
+					<xacro:unless value="${gpu}">
           <plugin name="laser" filename="libgazebo_ros_laser.so" >
-              <robotNamespace>/</robotNamespace>
-            <topicName>scan</topicName>
-            <frameName>base_laser</frameName>
+            <topicName>/scan</topicName>
+            <frameName>${name}</frameName>
           </plugin>
+          </xacro:unless>
+          <xacro:if value="${gpu}">
+          <plugin name="laser" filename="libgazebo_ros_gpu_laser.so" >
+            <topicName>/scan</topicName>
+            <frameName>${name}</frameName>
+          </plugin>
+          </xacro:if>
           <!--
           <plugin name="laser" filename="libRayPlugin.so" />
           -->
