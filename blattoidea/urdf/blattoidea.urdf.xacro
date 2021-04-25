@@ -373,9 +373,9 @@
       xyz="-1 0 0" />
       <dynamics damping="0.0" friction="0.0"/>
   </joint>
-  
 
+	<gazebo>
      <plugin name="JointStatePublisher" filename="libJointStatePublisher.so"/>
-  
+	</gazebo>
 </robot>
 

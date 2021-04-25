@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import rospy
 import numpy as np
@@ -37,21 +37,21 @@ def spawn_square(gazebo_model_srv, obj, reference, mean_vel = [0, 0], cov_vel = 
     blattoidea_orientation = np.array((model_state.pose[blattoidea_idx].orientation.x,model_state.pose[blattoidea_idx].orientation.y, model_state.pose[blattoidea_idx].orientation.z, model_state.pose[blattoidea_idx].orientation.w))
 
     rand = int(np.random.randint(4, size=1))
-    if rand is 0:
+    if rand == 0:
         x = float(np.random.uniform(coords[1][0], coords[2][0], 1))
         y = coords[1][1] - 1
         if x >= 0:
             vel = np.random.multivariate_normal([-0.5, -4], [[1, 0], [0, 1]], (1)).reshape(2)
         elif x < 0:
             vel = np.random.multivariate_normal([0.5, -4], [[1, 0], [0, 1]], (1)).reshape(2)    
-    elif rand is 1:
+    elif rand == 1:
         x = float(np.random.uniform(coords[1][0], coords[2][0], 1))
         y = coords[3][1] + 1
         if x >= 0:
             vel = np.random.multivariate_normal([-0.5, 4], [[1, 0], [0, 1]], (1)).reshape(2)
         elif x < 0:
             vel = np.random.multivariate_normal([0.5, 4], [[1, 0], [0, 1]], (1)).reshape(2)     
-    elif rand is 2:
+    elif rand == 2:
         y = float(np.random.uniform(coords[3][1], coords[1][1], 1))
         x = coords[2][0] - 1
         if y >= 0:
@@ -66,7 +66,7 @@ def spawn_square(gazebo_model_srv, obj, reference, mean_vel = [0, 0], cov_vel = 
         elif y < 0:
             vel = np.random.multivariate_normal([4, 0.5], [[1, 0], [0, 1]], (1)).reshape(2)
 
-    print "x, y, rand ", x, y, rand
+    #print ("x, y, rand ", x, y, rand)
 
     model_vel = Twist()
     model_vel.linear.x = vel[0]
@@ -83,7 +83,7 @@ def spawn_square(gazebo_model_srv, obj, reference, mean_vel = [0, 0], cov_vel = 
     model_pose.orientation.w = blattoidea_orientation[3]
     
     model = ModelState()
-    print "obj", obj
+    #print ("obj", obj)
     model.model_name = obj
     model.twist = model_vel
     model.pose = model_pose
@@ -98,15 +98,15 @@ def spawn_poly(gazebo_model_srv, obj, reference, mean_vel = [0, 0], cov_vel = [[
     # # blattoidea_euler = np.array(euler_from_quaternion(blattoidea_orientation))
  
     # rand = int(np.random.randint(3, size=1))
-    # if rand is 0:
+    # if rand == 0:
     #     x = float(np.random.uniform(coords[1][0], coords[2][0], 1))
     #     y = float((np.sqrt(3) * x - 1))
     #     vel = np.random.multivariate_normal([-0.5, -4], [[1, 0], [0, 1]], (1)).reshape(2)
-    # elif rand is 1:
+    # elif rand == 1:
     #     x = float(np.random.uniform(coords[1][0], coords[2][0], 1))
     #     y = float((np.sqrt(3) * x - 1) * (-1))
     #     vel = np.random.multivariate_normal([-0.5, 4], [[1, 0], [0, 1]], (1)).reshape(2)
-    # elif rand is 2:
+    # elif rand == 2:
     #     y = float(np.random.uniform(coords[3][1], coords[2][1], 1))
     #     x = coords[2][0] - 1
     #     if y >= 0:
@@ -178,7 +178,7 @@ def point_poly(tfBuffer, obj, frame, poly, bool):
     global model_state
     poly_coords = []
     if bool:
-        for ii in xrange (len(poly)):
+        for ii in range (len(poly)):
             pose = PoseStamped()
             pose.pose.position.x = poly[ii][0]
             pose.pose.position.y = poly[ii][1]
@@ -192,15 +192,15 @@ def point_poly(tfBuffer, obj, frame, poly, bool):
             try:
                 p = tfBuffer.transform(pose, 'world')
                 x, y = p.pose.position.x, p.pose.position.y
-            except tf2_ros.TransformException as (e):
-                print "some tf2 exception happened", e
+            except tf2_ros.TransformException as e:
+                print ("some tf2 exception happened", e)
             poly_coords.append((x, y))
     else:
         poly_coords = poly
 
     polygon = geometry.Polygon(poly_coords)
     inside_list = []
-    for ii in xrange(len(obj)):
+    for ii in range(len(obj)):
         idx = model_state.name.index(obj[ii])
         point = geometry.Point(model_state.pose[idx].position.x, model_state.pose[idx].position.y)
         within = point.within(polygon)
@@ -212,7 +212,7 @@ def camera_poly(frame):
     poly = PolygonStamped()
     poly.polygon.points = []
 
-    for ii in xrange(len(coords)):
+    for ii in range(len(coords)):
         poly_point = Point()
         poly_point.x = coords[ii][0]
         poly_point.y = coords[ii][1]

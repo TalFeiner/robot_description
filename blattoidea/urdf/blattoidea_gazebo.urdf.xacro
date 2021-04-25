@@ -16,8 +16,11 @@
 	<xacro:include filename="$(find blattoidea)/urdf/kinect.xacro"/>
 	<xacro:kinect/>
 
-	<xacro:include filename="$(find blattoidea)/urdf/camera.xacro"/>
-	<xacro:rgb_camera/>
+	<xacro:include filename="$(find blattoidea)/urdf/GPS.xacro"/>
+	<xacro:GPS/>
+
+	<!-- <xacro:include filename="$(find blattoidea)/urdf/camera.xacro"/>
+	<xacro:rgb_camera/> -->
 	
 	<xacro:include filename="$(find blattoidea)/urdf/hokuyo.xacro"/>
 	<xacro:laser name="base_laser" parent="base_link" xyz="0.17 0.0 0.085" rpy="3.14 0 0" meshes="package://gazebo_plugins/test/multi_robot_scenario/meshes/laser"/>
