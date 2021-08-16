@@ -119,7 +119,7 @@
 					<depthImageTopicName>/kinect/depth/image_raw</depthImageTopicName>
 					<depthImageInfoTopicName>/kinect/depth/camera_info</depthImageInfoTopicName>
 					<pointCloudTopicName>/kinect/depth/points</pointCloudTopicName>
-					<frameName>camera_link</frameName>
+					<frameName>camera_depth_optical_frame</frameName>
 					<pointCloudCutoff>0.05</pointCloudCutoff>
 					<pointCloudCutoffMax>5</pointCloudCutoffMax>
 					<distortionK1>0.1</distortionK1>

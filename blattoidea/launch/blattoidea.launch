@@ -2,6 +2,10 @@
 <launch>
 
     <arg name="world_name" default="worlds/empty.world"/>
+	<arg name="kinect" default="true"/>
+	<arg name="GPS" default="false"/>
+	<arg name="camera" default="false"/>
+	<arg name="lidar" default="false"/>
 
 
 	<node
@@ -10,7 +14,11 @@
 	type="static_transform_publisher"
 	args="0 0 0 0 0 0 world map 40" />
 	
-	<param name="robot_description" command="$(find xacro)/xacro '$(find blattoidea)/urdf/blattoidea_gazebo.urdf.xacro'" />
+	<param name="robot_description" command="$(find xacro)/xacro '$(find blattoidea)/urdf/blattoidea_gazebo.urdf.xacro'
+		kinect:=$(arg kinect)
+		GPS:=$(arg GPS)
+		camera:=$(arg camera)
+		lidar:=$(arg lidar)" />
 	
 	<!-- convert joint states to TF transforms for rviz, etc -->
 	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">

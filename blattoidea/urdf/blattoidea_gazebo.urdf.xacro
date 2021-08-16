@@ -5,6 +5,13 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" 
 	name="blattoidea_gazebo">
 
+
+	<xacro:arg name="kinect" default="true"/>
+	<xacro:arg name="GPS" default="30.0"/>
+	<xacro:arg name="camera" default="false"/>
+	<xacro:arg name="lidar" default="true"/>
+
+
 	<xacro:include filename="$(find blattoidea)/urdf/base_footprint.xacro"/>
 	<xacro:base_footprint/>
 
@@ -12,16 +19,24 @@
 
 	<xacro:include filename="$(find blattoidea)/urdf/DiffDrive.xacro"/>
 	<xacro:DiffDrive/>
-	
-	<xacro:include filename="$(find blattoidea)/urdf/kinect.xacro"/>
-	<xacro:kinect/>
 
-	<xacro:include filename="$(find blattoidea)/urdf/GPS.xacro"/>
-	<xacro:GPS/>
+	<xacro:if value="$(arg kinect)">
+		<xacro:include filename="$(find blattoidea)/urdf/kinect.xacro"/>
+		<xacro:kinect/>
+	</xacro:if>
 
-	<!-- <xacro:include filename="$(find blattoidea)/urdf/camera.xacro"/>
-	<xacro:rgb_camera/> -->
-	
-	<xacro:include filename="$(find blattoidea)/urdf/hokuyo.xacro"/>
-	<xacro:laser name="base_laser" parent="base_link" xyz="0.17 0.0 0.085" rpy="3.14 0 0" meshes="package://gazebo_plugins/test/multi_robot_scenario/meshes/laser" gpu="false"/>
+	<xacro:if value="$(arg GPS)">
+		<xacro:include filename="$(find blattoidea)/urdf/GPS.xacro"/>
+		<xacro:GPS/>
+	</xacro:if>
+
+	<xacro:if value="$(arg camera)">
+		<xacro:include filename="$(find blattoidea)/urdf/camera.xacro"/>
+		<xacro:rgb_camera/>
+	</xacro:if>
+
+	<xacro:if value="$(arg lidar)">
+		<xacro:include filename="$(find blattoidea)/urdf/hokuyo.xacro"/>
+		<xacro:laser name="base_laser" parent="base_link" xyz="0.17 0.0 0.085" rpy="3.14 0 0" meshes="package://gazebo_plugins/test/multi_robot_scenario/meshes/laser" gpu="false"/>
+	</xacro:if>
 </robot>
